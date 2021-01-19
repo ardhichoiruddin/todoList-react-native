@@ -1,0 +1,16 @@
+{
+    "plugins": [
+        [
+            "module-resolver",
+            {
+                "alias": {
+                    "@screen": "./src/screens",
+                    "@navigation": "./src/navigation",
+                    "@modules" : "./src/modules",
+                    "@constant" : "./src/constant",
+                    "@components" : "./src/components"
+                }
+            }
+        ]
+    ]
+}

@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@store" : ["./src/redux"],
+            "@screen" : ["./src/screens"],
+            "@navigation" : ["./src/navigation"],
+            "@modules" : ["./src/modules"]
+        }
+    }
+}
