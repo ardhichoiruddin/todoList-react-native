@@ -20,13 +20,14 @@ export default class Dates extends PureComponent {
     };
 
     render() {
+
         const {
             currentDateIndex,
             dates,
             onSelectDay,
             onRenderDay,
         } = this.props;
-        console.log(currentDateIndex)
+     
         return (
             <View style={styles.container}>
                 {dates.map((date, index) =>
@@ -50,5 +51,6 @@ export default class Dates extends PureComponent {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
+        paddingVertical: 13
     },
 });

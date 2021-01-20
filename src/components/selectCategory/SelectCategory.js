@@ -24,7 +24,8 @@ const SelectCategory = props => {
                             onPress={() => selectHandler(item)}
                             underlayColor="transparent"
                         >
-                            <View style={[apply("px-5 py-3"), props.state.id === item.id ? styles.selectItemBoxActive : styles.selectItemBox]}>
+                            <View style={[apply("px-5 py-3 row justify-center items-center"), props.state.id === item.id ? styles.selectItemBoxActive : styles.selectItemBox]}>
+                                <View style={[apply("mr-1"),styles.bulletColor, { backgroundColor: `${item.bgColor.color}` }]} />
                                 <Text style={[apply("text-base font-semibold"), props.state.id === item.id ? styles.selectItemTextActive : styles.selectItemText]}>{item.name}</Text>
                             </View>
                         </TouchableHighlight>
@@ -58,4 +59,9 @@ const styles = StyleSheet.create({
         fontFamily: 'OpenSans-SemiBold',
         color: 'white'
     },
+    bulletColor: {
+        width: 20,
+        height: 20,
+        borderRadius: 10
+    }
 })

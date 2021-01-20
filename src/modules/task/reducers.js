@@ -16,7 +16,6 @@ const taskReducer = (state = initialState, action) => {
                     description: action.data.description,
                     dateTask: action.data.dateTask,
                     timeTask: action.data.timeTask,
-                    bgColor: action.data.bgColor,
                     category: action.data.category,
                     complete: false
                 }) 

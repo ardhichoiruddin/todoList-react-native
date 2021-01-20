@@ -36,7 +36,7 @@ const BottomTab = props => {
                         onPress={() => {
                             navigateHandler('AddTask')
                         }}
-                        style={[apply("justify-center items-center shadow-lg"), styles.iconCenter]}
+                        style={[apply("justify-center items-center shadow-2xl"), styles.iconCenter]}
                     >
                         <Icon name="add" size={30} color="#fff" />
                     </TouchableHighlight>

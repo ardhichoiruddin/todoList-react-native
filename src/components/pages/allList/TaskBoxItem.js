@@ -10,7 +10,6 @@ const TaskBoxItem = props => {
     const { 
         id, 
         category, 
-        bgColor, 
         description,
         nameTask,
         dateTask,
@@ -18,14 +17,14 @@ const TaskBoxItem = props => {
     } = props.data
     
     const date = dateTask.split(' ')
-    console.log(date)
+
     return (
         <View 
             style={[
                 apply("row justify-start items-start rounded-lg overflow-hidden mt-3"), 
                 styles.boxWrapper,
                 {
-                    backgroundColor: bgColor.color
+                    backgroundColor: category.bgColor.color
                 }
                 ]}>
             <View style={[apply("justify-center items-center"), styles.boxWidthLeft]}>

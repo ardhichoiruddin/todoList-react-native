@@ -12,7 +12,8 @@ const categoryReducer = (state = initialState, action) => {
             return{
                 category: state.category.concat({
                     id: uuid(),
-                    name: action.category
+                    name: action.category,
+                    bgColor: action.bgColor
                 }) 
             }
         case DELETE_CATEGORY:

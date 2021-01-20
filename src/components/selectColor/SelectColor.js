@@ -33,13 +33,13 @@ const SelectColor = (props) => {
         <View style={apply("row items-center wrap mt-4")}>
             { colorsBg.map((item, index) => (
                 <TouchableHighlight
-                    key={item.id}
+                    key={index}
                     style={apply("mr-3")}
                     onPress={() => selectColorHandler(item)}
                     underlayColor="transparent"
                 >
                     <View style={[apply("justify-center items-center") ,styles.choiceColor, { backgroundColor: `${item.color}` }]}>
-                        { props.state.id === item.id ? <Icon name="check" size={33} color="white"/> : null }
+                        { props.state && props.state.id === item.id ? <Icon name="check" size={33} color="white"/> : null }
                     </View>
                 </TouchableHighlight>
             )) }

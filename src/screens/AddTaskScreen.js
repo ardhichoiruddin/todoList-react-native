@@ -19,12 +19,30 @@ const AddCategory = props => {
 
     const dispatch = useDispatch()
 
-    const [categoryName, setCategoryName] = useState(null)
+    const { control, handleSubmit, errors, register, setValue, getValues } = useForm()
+
+    const [bgColor, setBgColor] = useState(null)
+
+    const bgColorHandler = (color) => {
+        setValue('bgColor', color)
+        setBgColor(color)
+    }
 
     const handlerSubmit = () => {
-        dispatch({ type: SAVE_CATEGORY, category: categoryName })
+
+        const categoryName = getValues('categoryName')
+        const backgroundColor = getValues('bgColor')
+        dispatch({ type: SAVE_CATEGORY, category: categoryName, bgColor: backgroundColor })
         props.onDismiss()
+
     }
+
+    useEffect(() => {
+        register('bgColor', { required: 'This is required' })
+        return () => {
+            setBgColor(null)
+        }
+    },[])
 
     return(
         <Provider>
@@ -35,21 +53,36 @@ const AddCategory = props => {
                             <Text style={[apply("text-center text-xl mb-6"), styles.categoryModalTitle]}>Add Category</Text>
                         </View>
                         <View>
-                            <TextInput
-                                label="Name Task"
-                                mode="outlined"
-                                placeholder="Write name your task"
-                                value={props.value}
-                                onChangeText={text => {
-                                    setCategoryName(text)
-                                }}
-                                style={styles.textOpenSans}
+                            <Controller
+                                name="categoryName"
+                                control={control}
+                                rules={{ required: 'This is required' }}
+                                render={(props) => (
+                                    <TextInput
+                                        {...props}
+                                        label="Name Categor"
+                                        mode="outlined"
+                                        placeholder="Write name your category"
+                                        onChangeText={text => {
+                                            props.onChange(text)
+                                        }}
+                                    />
+                                )}
                             />
+                        </View>
+                        <View>
+                            <View style={apply("row items-center wrap mt-4")}>
+                                { errors.bgColor && <ErrorMessage message={errors.bgColor.message} /> }
+                                <SelectColor
+                                    state={bgColor}
+                                    setState={bgColorHandler}
+                                />
+                            </View>
                         </View>
                         <View style={apply("mt-6")}>
                             <Button
                                 mode="contained"
-                                onPress={handlerSubmit}
+                                onPress={handleSubmit(handlerSubmit)}
                                 style={[apply("px-4 py-2 rounded-lg"), styles.buttonSave]}
                             >
                                 <Text style={[apply("text-lg font-bold text-white"), styles.textButton]}>Save Category</Text>
@@ -101,18 +134,11 @@ const AddTaskScreen = props => {
     }
 
     const setCategory = (ct) => {
+        console.log(ct)
         setValue('category', ct)
         setOtherState(prevState => ({
             ...prevState,
             category: ct
-        }))
-    }
-
-    const setBgColor = (bg) => {
-        setValue('bgColor', bg)
-        setOtherState(prevState => ({
-            ...prevState,
-            bgColor: bg
         }))
     }
 
@@ -125,12 +151,10 @@ const AddTaskScreen = props => {
 
     useEffect(() =>{
 
-        register('bgColor', { required: 'This is required' })
         register('category', { required: 'This is required' })
 
         return () => {
             setOtherState({
-                bgColor: {},
                 category: {}
             })
         }
@@ -181,7 +205,7 @@ const AddTaskScreen = props => {
                                     onChangeText={text => {
                                         props.onChange(text)
                                     }}
-                                style={styles.textOpenSans}
+                            style={styles.textOpenSans}
                             />
                             )}
                         />
@@ -264,19 +288,6 @@ const AddTaskScreen = props => {
                                 </TouchableHighlight>
                             </View>
 
-                        </View>
-                    </View>
-
-                    <View style={apply("mt-8")}>
-                        <View>
-                            <Text style={[apply("text-lg font-semibold"), styles.choiceColorTitle]}>Choice Colors Background</Text>
-                            { errors.bgColor && <ErrorMessage message={errors.bgColor.message} /> }
-                            <View style={apply("row items-center wrap mt-4")}>
-                                <SelectColor
-                                    state={otherState.bgColor}
-                                    setState={setBgColor}
-                                />
-                            </View>
                         </View>
                     </View>
 

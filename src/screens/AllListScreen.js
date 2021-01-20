@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import BottomTab from '@components/bottomTab/BottomTab'
 import TaskBoxItem from '@components/pages/allList/TaskBoxItem'
 import { apply } from 'osmicsx'
@@ -13,17 +13,26 @@ import CategoryChoice from "@components/categoryChoice/CategoryChoice"
 import DateNow from '@components/pages/allList/DateNow'
 
 
-const heightTopAnimate = 280
+const heightTopAnimate = 307
 
 const AllListScreen = props => {
 
     const taskItem = useSelector(state => state.task.task)
     const categoryItem = useSelector(state => state.category.category)
 
+    const [data, setData] = useState(null)
+    const [categoryIdActive, setCategoryIdActive] = useState(0)
+
     const scrollA = useRef(new Animated.Value(0)).current
  
     const onSelectDate = (date: Moment) => {
         alert(date.calendar());
+    }
+
+    const selectCategoryById = (id) => {
+        setCategoryIdActive(id)
+        const results = taskItem.filter(catId => catId.category.id === id)
+        setData(results)
     }
 
     const renderItem = ({ item }) =>(
@@ -80,7 +89,7 @@ const AllListScreen = props => {
                     <View style={apply("mt-16")}>
                         <DateNow/>
                     </View>
-                    <View style={[apply("px-4 py-3 rounded-md mt-6"), styles.dateTop]}>
+                    <View style={[apply("px-4 py-3 rounded-md mt-4"), styles.dateTop]}>
                         <Calender
                             onSelectDate={ onSelectDate }
                         />
@@ -89,11 +98,15 @@ const AllListScreen = props => {
                         <View style={styles.lineDivider}/>
                     </View>
                 </Animated.View>
+
                 <View style={[apply("py-4"), {backgroundColor: '#FDFFFC'}]}>
                     <CategoryChoice
                         data={categoryItem}
+                        selectCategory={selectCategoryById}
+                        state={categoryIdActive}
                     />
                 </View>
+                
             </Animated.View>
             <Animated.ScrollView
                 style={[apply("flex"),  { backgroundColor: '#FDFFFC' }]}
@@ -107,9 +120,10 @@ const AllListScreen = props => {
                 <View style={[apply("px-4"), styles.paddingTopScroll]}>
                     <View style={apply("mt-4")}>
                         <FlatList
-                            data={taskItem}
+                            data={categoryIdActive === 0 ? taskItem : data}
                             keyExtractor={item => item.id}
                             renderItem={renderItem}
+                            extraData={categoryIdActive}
                         />
                      
                     </View>
