@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, TouchableHighlight, StyleSheet, ScrollView } from 'react-native'
+import { Navigation } from 'react-native-navigation'
 import { apply } from 'osmicsx'
 import { TextInput, Button, Modal, Portal, Provider } from 'react-native-paper'
 import DateTimePickerModal from 'react-native-modal-datetime-picker'
@@ -67,7 +68,7 @@ const ErrorMessage = ({message}) => (
     </View>
 )
 
-const AddTaskScreen = () => {
+const AddTaskScreen = props => {
 
     const dispatch = useDispatch()
     const categoryItem = useSelector(state => state.category)
@@ -116,12 +117,10 @@ const AddTaskScreen = () => {
     }
 
     const onSubmit = (dt) => {
-        dispatch({ type: SAVE_TASK, data: dt })
-        setOtherState({
-            bgColor: {},
-            category: {}
-        })
-
+        if(dt){
+            dispatch({ type: SAVE_TASK, data: dt })
+            Navigation.popToRoot(props.componentId)
+        }
     }
 
     useEffect(() =>{
@@ -136,8 +135,6 @@ const AddTaskScreen = () => {
             })
         }
     },[])
-
-    console.log(errors)
 
     return (
         <ScrollView
@@ -316,7 +313,7 @@ const AddTaskScreen = () => {
                 />
 
             </View>
-            
+
         </ScrollView>
     )
 }
