@@ -2,10 +2,11 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
-            "@store" : ["./src/redux"],
-            "@screen" : ["./src/screens"],
-            "@navigation" : ["./src/navigation"],
-            "@modules" : ["./src/modules"]
+            "@screen": ["./src/screens"],
+            "@navigation": ["./src/navigation"],
+            "@modules" : ["./src/modules"],
+            "@constant" : ["./src/constant"],
+            "@components" : ["./src/components"]
         }
     }
 }

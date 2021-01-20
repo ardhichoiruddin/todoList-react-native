@@ -2,13 +2,15 @@ import React, { useEffect, useRef } from 'react'
 import BottomTab from '@components/bottomTab/BottomTab'
 import TaskBoxItem from '@components/pages/allList/TaskBoxItem'
 import { apply } from 'osmicsx'
-import { FlatList, LogBox, ScrollView, StyleSheet, Text, View, Animated } from 'react-native'
+import { FlatList, LogBox, StyleSheet, View, Animated } from 'react-native'
 import { useSelector } from 'react-redux'
+import RNBootSplash from "react-native-bootsplash"
 
 import { colors } from '@constant/colors'
 
 import Calender from "@components/calender/Calender"
 import CategoryChoice from "@components/categoryChoice/CategoryChoice"
+import DateNow from '@components/pages/allList/DateNow'
 
 
 const heightTopAnimate = 280
@@ -31,7 +33,8 @@ const AllListScreen = props => {
     )
 
     useEffect(() => {
-        LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+        LogBox.ignoreLogs(['VirtualizedLists should never be nested'])
+        RNBootSplash.hide({ fade: true })
     }, [])    
 
     return (
@@ -55,15 +58,17 @@ const AllListScreen = props => {
                         apply("mb-3"),
                         {
                         opacity: scrollA.interpolate({
-                            inputRange: [0, 200],
+                            inputRange: [0, heightTopAnimate - 60],
                             outputRange: [1,0]
                         }),
                         transform: [
                             {
                                 scale: scrollA.interpolate({
                                     inputRange: [0, heightTopAnimate],
-                                    outputRange: [1,0.86]
-                                }),
+                                    outputRange: [1, 0.86]
+                                })
+                            },
+                            {
                                 translateY: scrollA.interpolate({
                                     inputRange: [-heightTopAnimate, 0, heightTopAnimate, heightTopAnimate+1],
                                     outputRange: [-heightTopAnimate, 0, heightTopAnimate - 100, heightTopAnimate]
@@ -73,7 +78,7 @@ const AllListScreen = props => {
                     }]}
                 >
                     <View style={apply("mt-16")}>
-                        <Text style={[apply("text-6xl font-semibold"),styles.heroText]}>4 May 2021</Text>
+                        <DateNow/>
                     </View>
                     <View style={[apply("px-4 py-3 rounded-md mt-6"), styles.dateTop]}>
                         <Calender
@@ -125,11 +130,7 @@ AllListScreen.options = {
 
 export default AllListScreen
 
-const styles = StyleSheet.create({
-    heroText: {
-        fontFamily: 'OpenSans-Bold',
-        color: colors.primaryColor
-    },
+const styles = StyleSheet.create({  
     dateTop: {
         backgroundColor: colors.primaryColor
     },
