@@ -7,7 +7,7 @@ import { colors } from '@constant/colors'
 
 
 const TaskBoxItem = props => {
-    console.log(props.data)
+  
     const { 
         id, 
         category, 
@@ -48,10 +48,10 @@ const TaskBoxItem = props => {
                 <View style={apply("mt-2 row items-center justify-between")}>
                     <Text numberOfLines={1} ellipsizeMode="tail" style={[apply("text-base"), styles.rightBottomText]}>{ timeTask } | { category.name }</Text>
                     <CheckBox
-                        disabled={false}
+                        disabled={complete}
                         value={complete}
                         onValueChange={(newValue) => {
-                            props.completeTask(id, props.data)
+                            props.handlerComplete && props.handlerComplete(id, props.data)
                         }}
                         tintColors={{ true: 'white', false: 'white' }}
                     />

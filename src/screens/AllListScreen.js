@@ -3,10 +3,12 @@ import BottomTab from '@components/bottomTab/BottomTab'
 import TaskBoxItem from '@components/pages/allList/TaskBoxItem'
 import { apply } from 'osmicsx'
 import { FlatList, LogBox, StyleSheet, View, Animated } from 'react-native'
-import { useSelector } from 'react-redux'
-import RNBootSplash from "react-native-bootsplash"
+import { useSelector, useDispatch } from 'react-redux'
+import RNBootSplash from 'react-native-bootsplash'
 
 import { colors } from '@constant/colors'
+import { SAVE_TASKCOMPLETE } from '@modules/taskComplete/types'
+import { DELETE_TASK } from '@modules/task/types'
 
 import Calender from "@components/calender/Calender"
 import CategoryChoice from "@components/categoryChoice/CategoryChoice"
@@ -17,8 +19,14 @@ const heightTopAnimate = 307
 
 const AllListScreen = props => {
 
+    const dispatch = useDispatch()
+
     const taskItem = useSelector(state => state.task.task)
     const categoryItem = useSelector(state => state.category.category)
+    const taskCompleteItem = useSelector(state => state.taskComplete)
+
+    console.log(taskCompleteItem)
+    console.log(taskItem)
 
     const [data, setData] = useState(null)
     const [categoryIdActive, setCategoryIdActive] = useState(0)
@@ -35,9 +43,15 @@ const AllListScreen = props => {
         setData(results)
     }
 
+    const toCompleteTask = (completeId, completeData) => {
+        dispatch({ type: SAVE_TASKCOMPLETE, data: completeData })
+        dispatch({ type: DELETE_TASK, taskId: completeId })
+    }
+
     const renderItem = ({ item }) =>(
         <TaskBoxItem
             data={item}
+            completeTask={toCompleteTask}
         />
     )
 

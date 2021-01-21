@@ -18,6 +18,13 @@ const BottomTab = props => {
                     }
                 })
                 break;
+            case 'TaskComplete':
+                Navigation.push(props.componentId,{
+                    component: {
+                        name: 'TaskComplete'
+                    }
+                })
+                break;
             default:
                 break;
         }
@@ -42,7 +49,11 @@ const BottomTab = props => {
                     </TouchableHighlight>
                 </View>
                 <View>
-                    <TouchableHighlight>
+                    <TouchableHighlight
+                        onPress={() => {
+                            navigateHandler('TaskComplete')
+                        }}
+                    >
                         <Icon name="pending-actions" size={30} color={colors.primaryColor} />
                     </TouchableHighlight>
                 </View>

@@ -58,4 +58,7 @@ buck-out/
 # CocoaPods
 /ios/Pods/
 
+# Android keystore
+/android/app/my-upload-key.keystore
+
 *.hprof
