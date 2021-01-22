@@ -1,13 +1,15 @@
 import React from 'react'
-import { View, StyleSheet, FlatList, ScrollView } from 'react-native'
+import { StyleSheet, FlatList } from 'react-native'
 import { apply } from 'osmicsx'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { colors } from '@constant/colors'
+
 import { DELETE_TASKCOMPLETE } from '@modules/taskComplete/types'
 import { SAVE_TASK } from '@modules/task/types'
 
 import TaskBoxItem from '@components/taskBoxItem/TaskBoxItem'
+import Container from '@components/layout/Container'
 
 
 const TaskCompleteScreen = () => {
@@ -34,14 +36,14 @@ const TaskCompleteScreen = () => {
     )
 
     return (
-        <View style={apply("px-4 flex")}>
+        <Container>
             <FlatList
                 contentContainerStyle={apply("pb-6 pt-4")}
                 data={taskCompleteItem}
                 keyExtractor={item => item.id}
                 renderItem={renderItem}
             />
-        </View>
+        </Container>
     )
 }
 

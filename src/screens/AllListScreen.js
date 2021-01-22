@@ -23,10 +23,6 @@ const AllListScreen = props => {
 
     const taskItem = useSelector(state => state.task.task)
     const categoryItem = useSelector(state => state.category.category)
-    const taskCompleteItem = useSelector(state => state.taskComplete)
-
-    console.log(taskCompleteItem)
-    console.log(taskItem)
 
     const [data, setData] = useState(null)
     const [categoryIdActive, setCategoryIdActive] = useState(0)
@@ -61,7 +57,7 @@ const AllListScreen = props => {
     }, [])    
 
     return (
-        <View style={[apply("flex"), { backgroundColor: '#FDFFFC' }]}>
+        <View  style={[apply("flex"), { backgroundColor: '#FDFFFC' }]}>
             <Animated.View style={[
                 apply("full px-4 absolute right-0 top-0 left-0 z-50 overflow-hidden"),
                 { 

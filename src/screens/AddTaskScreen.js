@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, TouchableHighlight, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, TouchableHighlight, StyleSheet, ScrollView, Modal as ModalWrapper, Alert } from 'react-native'
 import { Navigation } from 'react-native-navigation'
 import { apply } from 'osmicsx'
 import { TextInput, Button, Modal, Portal, Provider } from 'react-native-paper'
@@ -11,6 +11,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { colors } from '@constant/colors'
 import SelectColor from '@components/selectColor/SelectColor'
 import SelectCategory from '@components/selectCategory/SelectCategory'
+import Container from '@components/layout/Container'
 
 import { SAVE_CATEGORY } from '@modules/category/types'
 import { SAVE_TASK } from '@modules/task/types'
@@ -45,53 +46,60 @@ const AddCategory = props => {
     },[])
 
     return(
-        <Provider>
-            <Portal>
-                <Modal visible={props.visible} onDismiss={props.onDismiss} contentContainerStyle={apply("px-4 py-6")}>
-                    <View style={[apply("px-4 py-6 bg-white full rounded-lg shadow-lg"), { minHeight: 200 }]}>
-                        <View>
-                            <Text style={[apply("text-center text-xl mb-6"), styles.categoryModalTitle]}>Add Category</Text>
-                        </View>
-                        <View>
-                            <Controller
-                                name="categoryName"
-                                control={control}
-                                rules={{ required: 'This is required' }}
-                                render={(props) => (
-                                    <TextInput
-                                        {...props}
-                                        label="Name Categor"
-                                        mode="outlined"
-                                        placeholder="Write name your category"
-                                        onChangeText={text => {
-                                            props.onChange(text)
-                                        }}
-                                    />
-                                )}
-                            />
-                        </View>
-                        <View>
-                            <View style={apply("row items-center wrap mt-4")}>
-                                { errors.bgColor && <ErrorMessage message={errors.bgColor.message} /> }
-                                <SelectColor
-                                    state={bgColor}
-                                    setState={bgColorHandler}
+        <ModalWrapper
+            animationType="fade"
+            transparent={true}
+            visible={props.visible}
+            onRequestClose={props.onDismiss}
+        >
+            <Provider>
+                <Portal>
+                    <Modal visible={props.visible} onDismiss={props.onDismiss} contentContainerStyle={apply("px-4 py-6")}>
+                        <View style={[apply("px-4 py-6 bg-white full rounded-lg shadow-lg"), { minHeight: 200 }]}>
+                            <View>
+                                <Text style={[apply("text-center text-xl mb-6"), styles.categoryModalTitle]}>Add Category</Text>
+                            </View>
+                            <View>
+                                <Controller
+                                    name="categoryName"
+                                    control={control}
+                                    rules={{ required: 'This is required' }}
+                                    render={(props) => (
+                                        <TextInput
+                                            {...props}
+                                            label="Name Categor"
+                                            mode="outlined"
+                                            placeholder="Write name your category"
+                                            onChangeText={text => {
+                                                props.onChange(text)
+                                            }}
+                                        />
+                                    )}
                                 />
                             </View>
+                            <View>
+                                <View style={apply("row items-center wrap mt-4")}>
+                                    { errors.bgColor && <ErrorMessage message={errors.bgColor.message} /> }
+                                    <SelectColor
+                                        state={bgColor}
+                                        setState={bgColorHandler}
+                                    />
+                                </View>
+                            </View>
+                            <View style={apply("mt-6")}>
+                                <Button
+                                    mode="contained"
+                                    onPress={handleSubmit(handlerSubmit)}
+                                    style={[apply("px-4 py-2 rounded-lg"), styles.buttonSave]}
+                                >
+                                    <Text style={[apply("text-lg font-bold text-white"), styles.textButton]}>Save Category</Text>
+                                </Button>
+                            </View>
                         </View>
-                        <View style={apply("mt-6")}>
-                            <Button
-                                mode="contained"
-                                onPress={handleSubmit(handlerSubmit)}
-                                style={[apply("px-4 py-2 rounded-lg"), styles.buttonSave]}
-                            >
-                                <Text style={[apply("text-lg font-bold text-white"), styles.textButton]}>Save Category</Text>
-                            </Button>
-                        </View>
-                    </View>
-                </Modal>
-            </Portal>
-        </Provider>
+                    </Modal>
+                </Portal>
+            </Provider>
+        </ModalWrapper>
     )
 }
 
@@ -134,7 +142,6 @@ const AddTaskScreen = props => {
     }
 
     const setCategory = (ct) => {
-        console.log(ct)
         setValue('category', ct)
         setOtherState(prevState => ({
             ...prevState,
@@ -161,12 +168,11 @@ const AddTaskScreen = props => {
     },[])
 
     return (
-        <ScrollView
-            style={apply("flex")}
-            showsVerticalScrollIndicator={false}
-        >
-
-            <View style={[apply("flex px-4 py-4 flex"), { backgroundColor: '#FDFFFC' }]}>
+        <Container>
+            <ScrollView
+                style={apply("flex pb-0")}
+                showsVerticalScrollIndicator={false}
+            >
 
                 <View>
                     
@@ -303,29 +309,29 @@ const AddTaskScreen = props => {
 
                 </View>
 
-                {/* Modal Area */}
-                <AddCategory
-                    visible={addCatModal}
-                    onDismiss={hideModalAddCat}
-                />
+            </ScrollView>
 
-                <DateTimePickerModal
-                    isVisible={modalDate}
-                    mode="date"
-                    onConfirm={handleModalDate}
-                    onCancel={hideModalDate}
-                />
+            {/* Modal Area */}
+            <AddCategory
+                visible={addCatModal}
+                onDismiss={hideModalAddCat}
+            />
 
-                <DateTimePickerModal
-                    isVisible={isDatePickerVisible}
-                    mode="time"
-                    onConfirm={handleConfirm}
-                    onCancel={hideDatePicker}
-                />
+            <DateTimePickerModal
+                isVisible={modalDate}
+                mode="date"
+                onConfirm={handleModalDate}
+                onCancel={hideModalDate}
+            />
 
-            </View>
-
-        </ScrollView>
+            <DateTimePickerModal
+                isVisible={isDatePickerVisible}
+                mode="time"
+                onConfirm={handleConfirm}
+                onCancel={hideDatePicker}
+            />
+        
+        </Container>
     )
 }
 

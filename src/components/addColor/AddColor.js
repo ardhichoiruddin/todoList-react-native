@@ -5,27 +5,26 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import { useSelector } from 'react-redux'
 
 
-const SelectColor = (props) => {
+const AddColor = (props) => {
 
     const bgColor = useSelector(state => state.colors.colors)
 
-    const selectColorHandler = (color) => {
-        props.setState && props.setState(color)
-    }
-
     return (
         <View style={apply("row items-center wrap mt-4")}>
-            
             { bgColor.map((item, index) => (
-                <View style={apply("mr-3 mb-3 relative")}>
+                <View style={apply("mr-3 relative mb-3")} key={index}>
+
+                    <TouchableHighlight>
+                        <View style={[apply("justify-center items-center") ,styles.choiceColor, { backgroundColor: `${item.color}` }]}/>
+                    </TouchableHighlight>
+
                     <TouchableHighlight
-                        key={index}
-                        onPress={() => selectColorHandler(item)}
-                        underlayColor="transparent"
+                        style={[apply("absolute top-0 right-0 justify-center items-center"), styles.buttonDelete]}
+                        onPress={() => {
+                            props.deleteColor && props.deleteColor(item.id)
+                        }}
                     >
-                        <View style={[apply("justify-center items-center") ,styles.choiceColor, { backgroundColor: `${item.color}` }]}>
-                            { props.state && props.state.id === item.id ? <Icon name="check" size={33} color="white"/> : null }
-                        </View>
+                        <Icon name="delete" size={18} color="white"/>
                     </TouchableHighlight>
 
                 </View>
@@ -35,7 +34,7 @@ const SelectColor = (props) => {
     )
 }
 
-export default memo(SelectColor)
+export default memo(AddColor)
 
 const styles = StyleSheet.create({
     choiceColor: {

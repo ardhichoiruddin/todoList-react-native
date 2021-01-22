@@ -5,18 +5,20 @@ import { persistStore, persistReducer } from 'redux-persist'
 import categoryReducer from '@modules/category/reducers'
 import taskReducer from '@modules/task/reducers'
 import taskCompleteReducer from '@modules/taskComplete/reducers'
+import colorsReducer from '@modules/colors/reducers'
 
 
 const rootReducer = combineReducers({
     category: categoryReducer,
     task: taskReducer,
-    taskComplete: taskCompleteReducer
+    taskComplete: taskCompleteReducer,
+    colors: colorsReducer
 })
 
 const persistConfig = {
     key: 'root',
     storage: AsyncStorage,
-    whitelist: ['category', 'task', 'taskComplete']
+    whitelist: ['category', 'task', 'taskComplete', 'colors']
 }
 
 const persistedReduce = persistReducer(persistConfig, rootReducer)

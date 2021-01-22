@@ -25,17 +25,30 @@ const BottomTab = props => {
                     }
                 })
                 break;
+            case 'Settings':
+                Navigation.push(props.componentId,{
+                    component: {
+                        name: 'Settings'
+                    }
+                })
+                break;
             default:
                 break;
         }
     }
 
     return (
-        <View style={[apply("bg-white p-4 items-center full shadow-2xl"), styles.bottomTabWrapper]}>
+        <View style={[apply("bg-white p-4 items-center justify-center full shadow-2xl"), styles.bottomTabWrapper]}>
            <View style={[apply("row justify-between items-center full"), styles.bottomTab]}>
-                <View>
-                    <TouchableHighlight>
-                        <Icon name="content-paste" size={30} color={colors.primaryColor} />
+                <View style={[apply("items-center"), styles.rightleftWith ]}>
+                    <TouchableHighlight
+                        onPress={() => {
+                            navigateHandler('TaskComplete')
+                        }}
+                        underlayColor={colors.primaryColor}
+                        style={apply("p-3"), styles.bgIcon}
+                    >
+                        <Icon name="pending-actions" size={30} color={colors.primaryColor} />
                     </TouchableHighlight>
                 </View>
                 <View>
@@ -49,15 +62,15 @@ const BottomTab = props => {
                         <Icon name="add" size={30} color="#fff" />
                     </TouchableHighlight>
                 </View>
-                <View>
+                <View style={[apply("items-center"), styles.rightleftWith ]}>
                     <TouchableHighlight
                         onPress={() => {
-                            navigateHandler('TaskComplete')
+                            navigateHandler('Settings')
                         }}
                         underlayColor={colors.primaryColor}
                         style={apply("p-3"), styles.bgIcon}
                     >
-                        <Icon name="pending-actions" size={30} color={colors.primaryColor} />
+                        <Icon name="settings" size={30} color={colors.primaryColor} />
                     </TouchableHighlight>
                 </View>
            </View>
@@ -73,7 +86,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 14
     },
     bottomTab: {
-        maxWidth: 240
+        maxWidth: 290
     },
     iconCenter: {
         width: 62,
@@ -88,5 +101,8 @@ const styles = StyleSheet.create({
     bgIcon: {
         // backgroundColor: colors.primaryColor,
         borderRadius: 20
+    },
+    rightleftWith: {
+        width: 80
     }
 })
