@@ -44,6 +44,7 @@ const BottomTab = props => {
                             navigateHandler('AddTask')
                         }}
                         style={[apply("justify-center items-center shadow-2xl"), styles.iconCenter]}
+                        underlayColor={'white'}
                     >
                         <Icon name="add" size={30} color="#fff" />
                     </TouchableHighlight>
@@ -53,6 +54,8 @@ const BottomTab = props => {
                         onPress={() => {
                             navigateHandler('TaskComplete')
                         }}
+                        underlayColor={colors.primaryColor}
+                        style={apply("p-3"), styles.bgIcon}
                     >
                         <Icon name="pending-actions" size={30} color={colors.primaryColor} />
                     </TouchableHighlight>
@@ -81,5 +84,9 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         borderColor: 'white',
         marginTop: -44
+    },
+    bgIcon: {
+        // backgroundColor: colors.primaryColor,
+        borderRadius: 20
     }
 })

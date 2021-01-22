@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import BottomTab from '@components/bottomTab/BottomTab'
-import TaskBoxItem from '@components/pages/allList/TaskBoxItem'
+import TaskBoxItem from '@components/taskBoxItem/TaskBoxItem'
 import { apply } from 'osmicsx'
 import { FlatList, LogBox, StyleSheet, View, Animated } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
@@ -51,7 +51,7 @@ const AllListScreen = props => {
     const renderItem = ({ item }) =>(
         <TaskBoxItem
             data={item}
-            completeTask={toCompleteTask}
+            handlerComplete={toCompleteTask}
         />
     )
 

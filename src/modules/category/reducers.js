@@ -1,10 +1,11 @@
 import uuid from 'react-uuid'
+import Immutable from 'seamless-immutable'
 
 import { SAVE_CATEGORY, DELETE_CATEGORY } from './types'
 
-const initialState = {
+const initialState = Immutable({
     category: []
-}
+})
 
 const categoryReducer = (state = initialState, action) => {
     switch(action.type){

@@ -1,8 +1,10 @@
+import Immutable from 'seamless-immutable'
+
 import { SAVE_TASKCOMPLETE, DELETE_TASKCOMPLETE } from './types'
 
-const initialState = {
+const initialState = Immutable({
     taskComplete: []
-}
+})
 
 const taskCompleteReducer = (state = initialState, action) => {
     switch(action.type){
@@ -20,7 +22,7 @@ const taskCompleteReducer = (state = initialState, action) => {
             }
         case DELETE_TASKCOMPLETE:
             return{
-                taskComplete: state.task.filter(tk => tk.id !== action.taskId)
+                taskComplete: state.taskComplete.filter(tk => tk.id !== action.taskId)
             }
         default:
             return state
