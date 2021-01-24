@@ -9,17 +9,17 @@ import { colors } from '@constant/colors'
 
 
 const TaskBoxItem = props => {
-  
-    const { 
-        id, 
-        category, 
+
+    const {
+        id,
+        category,
         description,
         nameTask,
         dateTask,
         timeTask,
         complete
     } = props.data
-    
+
     const date = dateTask.split(' ')
 
     const toDetailScreen = (data) => {
@@ -35,9 +35,20 @@ const TaskBoxItem = props => {
                             color: category.bgColor.color
                         }
                     },
+                    animations: {
+                        push: {
+                            content: {
+                                translationX: {
+                                    from: require('react-native').Dimensions.get('window').width,
+                                    to: 0,
+                                    duration: 260
+                                }
+                            }
+                        }
+                    }
                 },
                 passProps: {
-                    data : data,
+                    data: data,
                 }
             }
         })
@@ -46,14 +57,14 @@ const TaskBoxItem = props => {
     return (
         <View style={[apply("row justify-start items-start rounded-lg overflow-hidden mt-3 row items-stretch"), styles.boxWrapper]}>
             <TouchableHighlight
-                style={[styles.boxWidthLeft, {  backgroundColor: category.bgColor.color }]}
+                style={[styles.boxWidthLeft, { backgroundColor: category.bgColor.color }]}
                 onPress={() => {
                     toDetailScreen(props.data)
                 }}
             >
                 <View style={[apply("justify-center items-center"), { height: 140 }]}>
-                    <Text style={[apply("text-6xl font-bold text-center text-white"), styles.heroDate]}>{ date[0] }</Text>
-                    <Text style={[apply("text-base text-center text-white"), styles.bottomHeroMonth]}>{ date[1] }</Text>
+                    <Text style={[apply("text-6xl font-bold text-center text-white"), styles.heroDate]}>{date[0]}</Text>
+                    <Text style={[apply("text-base text-center text-white"), styles.bottomHeroMonth]}>{date[1]}</Text>
                 </View>
             </TouchableHighlight>
             <View style={[apply("p-4"), styles.boxWidthRight]}>
@@ -61,18 +72,18 @@ const TaskBoxItem = props => {
                     <Text
                         ellipsizeMode={'tail'}
                         numberOfLines={2}
-                        ellipsizeMode="tail" 
+                        ellipsizeMode="tail"
                         style={[apply("text-lg"), styles.rightTitle]}
-                    >{ nameTask }</Text>
-                    { complete && (
+                    >{nameTask}</Text>
+                    {complete && (
                         <TouchableHighlight
                             onPress={() => {
                                 props.deleteItem && props.deleteItem(id)
                             }}
                         >
-                            <Icon name="delete" color="#fff" size={28}/>
+                            <Icon name="delete" color="#fff" size={28} />
                         </TouchableHighlight>
-                    ) }
+                    )}
                 </View>
                 <View style={apply("mt-1")}>
                     <Text
@@ -80,11 +91,11 @@ const TaskBoxItem = props => {
                         numberOfLines={2}
                         style={[apply("text-base"), styles.rightText]}
                     >
-                        { description }
+                        {description}
                     </Text>
                 </View>
                 <View style={apply("mt-2 row items-center justify-between")}>
-                    <Text numberOfLines={1} ellipsizeMode="tail" style={[apply("text-base"), styles.rightBottomText]}>{ timeTask } | { category.name }</Text>
+                    <Text numberOfLines={1} ellipsizeMode="tail" style={[apply("text-base"), styles.rightBottomText]}>{timeTask} | {category.name}</Text>
                     <CheckBox
                         disabled={false}
                         value={complete}
@@ -104,7 +115,7 @@ export default memo(TaskBoxItem)
 
 const styles = StyleSheet.create({
     boxWrapper: {
-       backgroundColor: colors.primaryColor
+        backgroundColor: colors.primaryColor
     },
     boxWidthLeft: {
         width: '30%',

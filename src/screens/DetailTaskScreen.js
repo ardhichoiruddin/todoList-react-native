@@ -11,7 +11,7 @@ import { colors } from '@constant/colors'
 const DetailTaskScreen = props => {
 
     const { data } = props
-    console.log(data)
+
     return (
         <Container>
             <ScrollView
@@ -19,7 +19,7 @@ const DetailTaskScreen = props => {
                 showsVerticalScrollIndicator={false}
             >
                 <View style={apply("flex")}>
-                    <Text style={[apply("text-2xl"), styles.textTitle]}>{ data.nameTask }</Text>
+                    <Text style={[apply("text-4xl"), styles.textTitle]}>{ data.nameTask }</Text>
                     <View style={apply("py-2")}>
                         <Text style={[apply("text-lg"), styles.textBody]}>{ data.description }</Text>
                     </View>
