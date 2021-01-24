@@ -7,6 +7,7 @@ import AllListScreen from '@screen/AllListScreen'
 import AddTaskScreen from '@screen/AddTaskScreen'
 import TaskCompleteScreen from '@screen/TaskCompleteScreen'
 import SettingsScreen from '@screen/SettingsScreen'
+import DetailTaskScreen from '@screen/DetailTaskScreen'
 
 export const registerRoute = () => {
     const Screens = new Map()
@@ -15,6 +16,7 @@ export const registerRoute = () => {
     Screens.set('AddTask', AddTaskScreen)
     Screens.set('TaskComplete', TaskCompleteScreen)
     Screens.set('Settings', SettingsScreen)
+    Screens.set('DetailTask', DetailTaskScreen)
 
     Screens.forEach((C, key) => {
         Navigation.registerComponent(key, () => gestureHandlerRootHOC(storeProvider(C)), () => C)

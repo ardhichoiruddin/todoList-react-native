@@ -6,19 +6,22 @@ import categoryReducer from '@modules/category/reducers'
 import taskReducer from '@modules/task/reducers'
 import taskCompleteReducer from '@modules/taskComplete/reducers'
 import colorsReducer from '@modules/colors/reducers'
+import idFilterCategoryReducer from '@modules/idFilterCategory/reducers'
 
 
 const rootReducer = combineReducers({
     category: categoryReducer,
     task: taskReducer,
     taskComplete: taskCompleteReducer,
-    colors: colorsReducer
+    colors: colorsReducer,
+    idCategory: idFilterCategoryReducer
 })
 
 const persistConfig = {
     key: 'root',
     storage: AsyncStorage,
-    whitelist: ['category', 'task', 'taskComplete', 'colors']
+    whitelist: ['category', 'task', 'taskComplete', 'colors'],
+    blacklist: ['idCategory']
 }
 
 const persistedReduce = persistReducer(persistConfig, rootReducer)

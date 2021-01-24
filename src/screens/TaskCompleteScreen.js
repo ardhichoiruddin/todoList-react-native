@@ -12,7 +12,7 @@ import TaskBoxItem from '@components/taskBoxItem/TaskBoxItem'
 import Container from '@components/layout/Container'
 
 
-const TaskCompleteScreen = () => {
+const TaskCompleteScreen = props => {
 
     const dispatch = useDispatch()
     const taskCompleteItem = useSelector(state => state.taskComplete.taskComplete)
@@ -22,7 +22,6 @@ const TaskCompleteScreen = () => {
     }
 
     const unCompletedTask = (id, data) => {
-        console.log(data)
         dispatch({ type: SAVE_TASK, data })
         dispatch({ type: DELETE_TASKCOMPLETE, taskId: id })
     }
@@ -32,6 +31,7 @@ const TaskCompleteScreen = () => {
             data={item}
             deleteItem={deleteItem}
             handlerComplete={unCompletedTask}
+            componentId={props.componentId}
         />
     )
 

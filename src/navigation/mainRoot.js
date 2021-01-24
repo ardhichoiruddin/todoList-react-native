@@ -22,4 +22,8 @@ Navigation.setDefaultOptions({
         backgroundColor: 'white',
         translucent: true
     },
+    topBar: {
+        animate: true,
+        elevation: 2
+    }
 });

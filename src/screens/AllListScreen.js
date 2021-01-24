@@ -48,6 +48,7 @@ const AllListScreen = props => {
         <TaskBoxItem
             data={item}
             handlerComplete={toCompleteTask}
+            componentId={props.componentId}
         />
     )
 

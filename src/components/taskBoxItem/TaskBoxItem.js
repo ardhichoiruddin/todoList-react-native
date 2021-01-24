@@ -1,5 +1,6 @@
 import React, { memo } from 'react'
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native'
+import { Navigation } from 'react-native-navigation'
 import { apply } from 'osmicsx'
 import CheckBox from '@react-native-community/checkbox'
 import Icon from 'react-native-vector-icons/MaterialIcons'
@@ -21,12 +22,40 @@ const TaskBoxItem = props => {
     
     const date = dateTask.split(' ')
 
+    const toDetailScreen = (data) => {
+        Navigation.push(props.componentId, {
+            component: {
+                name: 'DetailTask',
+                options: {
+                    topBar: {
+                        title: {
+                            text: nameTask,
+                        },
+                        background: {
+                            color: category.bgColor.color
+                        }
+                    },
+                },
+                passProps: {
+                    data : data,
+                }
+            }
+        })
+    }
+
     return (
         <View style={[apply("row justify-start items-start rounded-lg overflow-hidden mt-3 row items-stretch"), styles.boxWrapper]}>
-            <View style={[apply("justify-center items-center"), styles.boxWidthLeft, {  backgroundColor: category.bgColor.color }]}>
-                <Text style={[apply("text-6xl font-bold text-center text-white"), styles.heroDate]}>{ date[0] }</Text>
-                <Text style={[apply("text-base text-center text-white"), styles.bottomHeroMonth]}>{ date[1] }</Text>
-            </View>
+            <TouchableHighlight
+                style={[styles.boxWidthLeft, {  backgroundColor: category.bgColor.color }]}
+                onPress={() => {
+                    toDetailScreen(props.data)
+                }}
+            >
+                <View style={[apply("justify-center items-center"), { height: 140 }]}>
+                    <Text style={[apply("text-6xl font-bold text-center text-white"), styles.heroDate]}>{ date[0] }</Text>
+                    <Text style={[apply("text-base text-center text-white"), styles.bottomHeroMonth]}>{ date[1] }</Text>
+                </View>
+            </TouchableHighlight>
             <View style={[apply("p-4"), styles.boxWidthRight]}>
                 <View style={apply("row items-center justify-between")}>
                     <Text
