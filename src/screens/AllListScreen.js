@@ -59,6 +59,7 @@ const AllListScreen = props => {
 
     return (
         <View  style={[apply("flex"), { backgroundColor: '#FDFFFC' }]}>
+            
             <Animated.View style={[
                 apply("full px-4 absolute right-0 top-0 left-0 z-50 overflow-hidden"),
                 { 
@@ -73,6 +74,7 @@ const AllListScreen = props => {
                     ]
                 }
             ]}>
+
                 <Animated.View
                     style={[
                         apply("mb-3"),
@@ -100,9 +102,10 @@ const AllListScreen = props => {
                     <View style={apply("mt-16")}>
                         <DateNow/>
                     </View>
-                    <View style={[apply("px-4 py-3 rounded-md mt-4"), styles.dateTop]}>
+                    <View style={apply("mt-6")}>
                         <Calender
-                            onSelectDate={ onSelectDate }
+                            showBeforeCurrentDate={2}
+                            showAfterCurrentDate={9}
                         />
                     </View>
                     <View style={apply("full justify-center items-center mt-6 mb-4")}>
@@ -119,6 +122,7 @@ const AllListScreen = props => {
                 </View>
                 
             </Animated.View>
+
             <Animated.ScrollView
                 style={[apply("flex"),  { backgroundColor: '#FDFFFC' }]}
                 showsVerticalScrollIndicator={false}
@@ -136,13 +140,15 @@ const AllListScreen = props => {
                             renderItem={renderItem}
                             extraData={categoryIdActive}
                         />
-                     
                     </View>
+                   
                 </View>
             </Animated.ScrollView>
+
             <BottomTab
                 componentId={props.componentId}
             />
+
         </View>
     )
 }

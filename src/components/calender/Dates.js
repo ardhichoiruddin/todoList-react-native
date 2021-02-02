@@ -1,56 +1,27 @@
-import React, { PureComponent } from 'react';
-import {
-    StyleSheet,
-    View,
-} from 'react-native';
-import Date from './Date';
-import type Moment from 'moment';
+import React from 'react'
+import { View, ScrollView } from 'react-native'
+import { apply } from 'osmicsx'
 
-export default class Dates extends PureComponent {
+import Date from './Date'
 
-    props: {
-        // Currently active date index
-        currentDateIndex: ?number,
-        // Array of dates to render
-        dates: Array<Moment>,
-        // Callback to handle date select
-        onSelectDay: (index: number) => void,
-        // Callback to handle date render
-        onRenderDay: (index: number, width: number) => void,
-    };
-
-    render() {
-
-        const {
-            currentDateIndex,
-            dates,
-            onSelectDay,
-            onRenderDay,
-        } = this.props;
-     
-        return (
-            <View style={styles.container}>
-                {dates.map((date, index) =>
-                    <View key={index}>
-                        <Date
-                            date={date}
-                            index={index}
-                            isActive={index === currentDateIndex}
-                            onPress={onSelectDay}
-                            onRender={onRenderDay}
-                            key={index}
-                        />
-                    </View>
-                )}
+const Dates = props => {
+    return (
+        
+        <ScrollView
+            horizontal={true}
+        >
+            <View style={apply("row items-center justify-start")}>
+                { props.dates && props.dates.map((item, index) => (
+                    <Date
+                        key={index}
+                        date={item}
+                        currentDate={props.currentIndex === index}
+                    />
+                ))}
             </View>
-        );
-    }
-
+        </ScrollView>
+       
+    )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        paddingVertical: 13
-    },
-});
+export default Dates

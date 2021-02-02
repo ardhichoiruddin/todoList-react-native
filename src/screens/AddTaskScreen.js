@@ -20,7 +20,12 @@ const AddCategory = props => {
 
     const dispatch = useDispatch()
 
-    const { control, handleSubmit, errors, register, setValue, getValues } = useForm()
+    const { control, handleSubmit, errors, register, setValue, getValues } = useForm({
+        defaultValues: {
+            categoryName: '',
+            bgColor: ''
+        }
+    })
 
     const [bgColor, setBgColor] = useState(null)
 
@@ -114,7 +119,15 @@ const AddTaskScreen = props => {
     const dispatch = useDispatch()
     const categoryItem = useSelector(state => state.category)
 
-    const { control, handleSubmit, errors, register, setValue } = useForm()
+    const { control, handleSubmit, errors, register, setValue } = useForm({
+        defaultValues: {
+            nameTask: '',
+            description: '',
+            dateTask: '',
+            timeTask: '',
+            category: ''
+        }
+    })
 
     const [otherState, setOtherState] = useState({
         bgColor: {},

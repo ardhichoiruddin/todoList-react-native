@@ -17,9 +17,8 @@ const SelectColor = (props) => {
         <View style={apply("row items-center wrap mt-4")}>
             
             { bgColor.map((item, index) => (
-                <View style={apply("mr-3 mb-3 relative")}>
+                <View key={index} style={apply("mr-3 mb-3 relative")}>
                     <TouchableHighlight
-                        key={index}
                         onPress={() => selectColorHandler(item)}
                         underlayColor="transparent"
                     >
