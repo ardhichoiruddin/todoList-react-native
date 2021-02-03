@@ -11,7 +11,6 @@ export const showAfterCurrentDate = 8
 export const showBeforeCurrentDate = 3
 
 export const fetchDate = () => async(dispatch, getState) => {
-   
     const getDate = new Promise((resolve, reject) => {
         const { task: { task } } = getState()
         const startDay = moment().subtract(showBeforeCurrentDate + 1, 'days')
@@ -24,7 +23,7 @@ export const fetchDate = () => async(dispatch, getState) => {
             Moment: item,
             availableTask: availableTaskHandler(item.format(), taskDate)
         }) )
-        
+
         if(date){
             resolve(date)
         }

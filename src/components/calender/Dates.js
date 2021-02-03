@@ -17,6 +17,7 @@ const Dates = props => {
                         date={item.Moment}
                         availableTask={item.availableTask}
                         currentDate={props.currentIndex === index}
+                        toDetail={props.toDetailTaskDate}
                     />
                 ))}
             </View>

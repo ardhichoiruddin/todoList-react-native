@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react'
 import { Navigation } from 'react-native-navigation'
-import BottomTab from '@components/bottomTab/BottomTab'
-import TaskBoxItem from '@components/taskBoxItem/TaskBoxItem'
 import { apply } from 'osmicsx'
 import { FlatList, LogBox, StyleSheet, View, Animated } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
@@ -16,6 +14,8 @@ import Calender from "@components/calender/Calender"
 import CategoryChoice from "@components/categoryChoice/CategoryChoice"
 import DateNow from '@components/pages/allList/DateNow'
 import AddTask from '@components/pages/allList/AddTask'
+import BottomTab from '@components/bottomTab/BottomTab'
+import TaskBoxItem from '@components/taskBoxItem/TaskBoxItem'
 
 const heightTopAnimate = 307
 
@@ -114,8 +114,7 @@ const AllListScreen = props => {
                     </View>
                     <View style={apply("mt-6")}>
                         <Calender
-                            showBeforeCurrentDate={2}
-                            showAfterCurrentDate={9}
+                            componentId={props.componentId}
                         />
                     </View>
                     <View style={apply("full justify-center items-center mt-6 mb-4")}>

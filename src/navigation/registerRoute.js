@@ -8,6 +8,7 @@ import AddTaskScreen from '@screen/AddTaskScreen'
 import TaskCompleteScreen from '@screen/TaskCompleteScreen'
 import SettingsScreen from '@screen/SettingsScreen'
 import DetailTaskScreen from '@screen/DetailTaskScreen'
+import DateDetailScreen from '@screen/DateDetailScreen'
 
 export const registerRoute = () => {
 
@@ -18,6 +19,7 @@ export const registerRoute = () => {
     Screens.set('TaskComplete', TaskCompleteScreen)
     Screens.set('Settings', SettingsScreen)
     Screens.set('DetailTask', DetailTaskScreen)
+    Screens.set('DateDetail', DateDetailScreen)
 
     Screens.forEach((C, key) => {
         Navigation.registerComponent(key, () => gestureHandlerRootHOC(storeProvider(C)), () => C)
