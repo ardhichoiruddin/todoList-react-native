@@ -27,7 +27,7 @@ const DetailTaskScreen = props => {
                         <View style={apply("column items-start pr-6")}>
                             <View style={apply("row items-center")}>
                                 <Icon name="date-range" color={colors.primaryColor} size={24}/>
-                                <Text style={[apply("ml-1 text-base"), styles.dateTimeText]}>{ data.dateTask }</Text>
+                                <Text style={[apply("ml-1 text-base"), styles.dateTimeText]}>{ data.dateTask.dateDisplay }</Text>
                             </View>
                             <View style={apply("row items-center mt-3")}>
                                 <Icon name="category" color={colors.primaryColor} size={24}/>

@@ -10,6 +10,7 @@ import { SAVE_TASK } from '@modules/task/types'
 
 import TaskBoxItem from '@components/taskBoxItem/TaskBoxItem'
 import Container from '@components/layout/Container'
+import TaskEmpty from '@components/taskEmpty/TaskEmpty'
 
 
 const TaskCompleteScreen = props => {
@@ -37,12 +38,18 @@ const TaskCompleteScreen = props => {
 
     return (
         <Container>
-            <FlatList
-                contentContainerStyle={apply("pb-6 pt-4")}
-                data={taskCompleteItem}
-                keyExtractor={item => item.id}
-                renderItem={renderItem}
-            />
+            { taskCompleteItem.length > 0 ? (
+                <FlatList
+                    contentContainerStyle={apply("pb-6 pt-4")}
+                    data={taskCompleteItem}
+                    keyExtractor={item => item.id}
+                    renderItem={renderItem}
+                />
+            ) : (
+                <TaskEmpty
+                    message="Task Empty"
+                />
+            ) }
         </Container>
     )
 }

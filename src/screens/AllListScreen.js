@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useCallback } from 'react'
+import { Navigation } from 'react-native-navigation'
 import BottomTab from '@components/bottomTab/BottomTab'
 import TaskBoxItem from '@components/taskBoxItem/TaskBoxItem'
 import { apply } from 'osmicsx'
@@ -9,11 +10,12 @@ import RNBootSplash from 'react-native-bootsplash'
 import { colors } from '@constant/colors'
 import { SAVE_TASKCOMPLETE } from '@modules/taskComplete/types'
 import { DELETE_TASK } from '@modules/task/types'
+import { fetchDate } from '@modules/availableDate/actions'
 
 import Calender from "@components/calender/Calender"
 import CategoryChoice from "@components/categoryChoice/CategoryChoice"
 import DateNow from '@components/pages/allList/DateNow'
-
+import AddTask from '@components/pages/allList/AddTask'
 
 const heightTopAnimate = 307
 
@@ -28,20 +30,17 @@ const AllListScreen = props => {
     const [categoryIdActive, setCategoryIdActive] = useState(0)
 
     const scrollA = useRef(new Animated.Value(0)).current
- 
-    const onSelectDate = (date: Moment) => {
-        alert(date.calendar());
-    }
 
-    const selectCategoryById = (id) => {
+    const selectCategoryById = useCallback((id) => {
         setCategoryIdActive(id)
         const results = taskItem.filter(catId => catId.category.id === id)
         setData(results)
-    }
+    },[taskItem])
 
     const toCompleteTask = (completeId, completeData) => {
         dispatch({ type: SAVE_TASKCOMPLETE, data: completeData })
         dispatch({ type: DELETE_TASK, taskId: completeId })
+        dispatch(fetchDate())
     }
 
     const renderItem = ({ item }) =>(
@@ -55,7 +54,18 @@ const AllListScreen = props => {
     useEffect(() => {
         LogBox.ignoreLogs(['VirtualizedLists should never be nested'])
         RNBootSplash.hide({ fade: true })
-    }, [])    
+        const listener = {
+            componentDidAppear: () => {
+                dispatch(fetchDate())
+            }
+        }
+        const unsubscribe = Navigation.events().registerComponentListener(listener, props.componentId);
+        return () => {
+            unsubscribe.remove();
+          };
+    }, [])  
+    
+    console.log(taskItem)
 
     return (
         <View  style={[apply("flex"), { backgroundColor: '#FDFFFC' }]}>
@@ -134,12 +144,19 @@ const AllListScreen = props => {
             >
                 <View style={[apply("px-4"), styles.paddingTopScroll]}>
                     <View style={apply("mt-4")}>
-                        <FlatList
-                            data={categoryIdActive === 0 ? taskItem : data}
-                            keyExtractor={item => item.id}
-                            renderItem={renderItem}
-                            extraData={categoryIdActive}
-                        />
+                        { taskItem.length > 0 ? (
+                            <FlatList
+                                data={categoryIdActive === 0 ? taskItem : data}
+                                keyExtractor={item => item.id}
+                                renderItem={renderItem}
+                                extraData={categoryIdActive}
+                            />
+                        ) : (
+                            <AddTask
+                                componentId={props.componentId}
+                            />
+                        ) }
+                       
                     </View>
                    
                 </View>

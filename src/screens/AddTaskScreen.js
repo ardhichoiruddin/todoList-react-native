@@ -15,6 +15,7 @@ import Container from '@components/layout/Container'
 
 import { SAVE_CATEGORY } from '@modules/category/types'
 import { SAVE_TASK } from '@modules/task/types'
+import { fetchDate } from '@modules/availableDate/actions'
 
 const AddCategory = props => {
 
@@ -143,7 +144,10 @@ const AddTaskScreen = props => {
     const hideModalDate = () => setModalDate(false)
     const showModalDate = () => setModalDate(true)
     const handleModalDate = (date) => { 
-        setValue('dateTask', moment(date).format('DD MMMM YYYY'))
+        setValue('dateTask', {
+            dateDisplay: moment(date).format('DD MMMM YYYY'),
+            dateMoment: moment(date).format()
+        })
         hideModalDate()
     }
 
@@ -174,6 +178,7 @@ const AddTaskScreen = props => {
         register('category', { required: 'This is required' })
 
         return () => {
+            dispatch(fetchDate())
             setOtherState({
                 category: {}
             })
@@ -238,12 +243,10 @@ const AddTaskScreen = props => {
                             render={(props) => (
                                 <TextInput
                                     {...props}
+                                    value={props.value.dateDisplay}
                                     label="Date Task"
                                     mode="outlined"
                                     placeholder="Write date task"
-                                    onChangeText={text => {
-                                        props.onChange(text)
-                                    }}
                                     onFocus={showModalDate}
                                     style={styles.textOpenSans}
                                     right={

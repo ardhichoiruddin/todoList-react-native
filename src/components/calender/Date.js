@@ -5,9 +5,10 @@ import { apply } from 'osmicsx'
 import { colors } from '@constant/colors'
 
 const Date = props => {
-    console.log(props.currentDate)
+    
     const getDateStyle = () => ({
-        ...(props.currentDate ? styles.isActive : {})
+        ...(props.currentDate ? styles.isActive : {}),
+        ...(props.availableTask ? styles.availableTask : {})
     })
 
     return (
@@ -39,5 +40,8 @@ const styles = StyleSheet.create({
     },
     isActive: {
         borderColor: '#2EC4B6'
+    },
+    availableTask: {
+        borderColor: 'red'
     }
 })

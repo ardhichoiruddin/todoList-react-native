@@ -8,7 +8,8 @@
                     "@navigation": "./src/navigation",
                     "@modules" : "./src/modules",
                     "@constant" : "./src/constant",
-                    "@components" : "./src/components"
+                    "@components" : "./src/components",
+                    "@utils" : "./src/utils"
                 }
             }
         ]

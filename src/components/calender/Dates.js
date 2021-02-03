@@ -5,8 +5,8 @@ import { apply } from 'osmicsx'
 import Date from './Date'
 
 const Dates = props => {
-    return (
-        
+
+    return (        
         <ScrollView
             horizontal={true}
         >
@@ -14,13 +14,13 @@ const Dates = props => {
                 { props.dates && props.dates.map((item, index) => (
                     <Date
                         key={index}
-                        date={item}
+                        date={item.Moment}
+                        availableTask={item.availableTask}
                         currentDate={props.currentIndex === index}
                     />
                 ))}
             </View>
-        </ScrollView>
-       
+        </ScrollView>    
     )
 }
 

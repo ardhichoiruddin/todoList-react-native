@@ -20,7 +20,7 @@ const TaskBoxItem = props => {
         complete
     } = props.data
 
-    const date = dateTask.split(' ')
+    const date = dateTask.dateDisplay.split(' ')
 
     const toDetailScreen = (data) => {
         Navigation.push(props.componentId, {
