@@ -3,7 +3,7 @@ import Immutable from 'seamless-immutable'
 import { SAVE_IDCATEGORY } from './types'
 
 const initialState = Immutable({
-    idCategory :0
+    idCategory : 0
 })
 
 const idFilterCategoryReducer = (state = initialState, action) => {

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, FlatList } from 'react-native'
+import { FlatList, View, ActivityIndicator } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import moment from 'moment'
+import { apply } from 'osmicsx'
 
 import Container from '@components/layout/Container'
 import TaskBoxItem from '@components/taskBoxItem/TaskBoxItem'
@@ -11,6 +12,8 @@ import { SAVE_TASKCOMPLETE } from '@modules/taskComplete/types'
 import { DELETE_TASK } from '@modules/task/types'
 import { fetchDate } from '@modules/availableDate/actions'
 
+import { colors } from '@constant/colors'
+
 
 const DateDetailScreen = props => {
 
@@ -18,11 +21,14 @@ const DateDetailScreen = props => {
 
     const taskItem = useSelector(state => state.task.task)
 
+    const [loading, setLoading] = useState(false)
+
     const { date } = props
 
     const [data, setData] = useState([])
 
     const getData = async() => {
+        setLoading(true)
         const getTask = new Promise((resolve) => {
             const dateDetail = taskItem.filter(item => moment(date).isSame(moment(item.dateTask.dateMoment).format("YYYY-MM-DD")) === true)
             if(dateDetail){
@@ -46,13 +52,9 @@ const DateDetailScreen = props => {
             componentId={props.componentId}
         />
     )
-   
-    useEffect(() => {
-        getData()
-    },[])
 
-    return (
-        <Container>
+    const itemResult = () => (
+        <View>
             { data.length > 0 ? (
                 <FlatList
                     data={data}
@@ -63,7 +65,26 @@ const DateDetailScreen = props => {
                 <TaskEmpty
                     message="Task Empty"
                 />
+            )}
+        </View>
+    )
+   
+    useEffect(() => {
+        getData()
+        setTimeout(() => {
+            setLoading(false)
+        }, 1000)
+    },[])
+
+    return (
+        <Container>
+            { loading && (
+                <View style={apply("flex justify-center items-center")}>
+                    <ActivityIndicator size="large" color={colors.primaryColor} />
+                </View>
             ) }
+            
+            { !loading && itemResult() }
           
         </Container>
     )

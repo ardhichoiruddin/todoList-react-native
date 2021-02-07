@@ -23,6 +23,7 @@
     "react-native-modal-datetime-picker": "^9.1.0",
     "react-native-navigation": "^7.3.0",
     "react-native-paper": "^4.4.0",
+    "react-native-push-notification": "^7.2.0",
     "react-native-vector-icons": "^7.1.0",
     "react-redux": "^7.2.2",
     "react-uuid": "^1.0.2",

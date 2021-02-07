@@ -1,5 +1,7 @@
 import moment from 'moment'
 
+import { fetchDateNotif } from '@modules/notificationNow/actions'
+
 import { SAVE_AVAILABLEDATE } from './types'
 
 const availableTaskHandler = (date, taskDate) => {
@@ -11,7 +13,7 @@ export const showAfterCurrentDate = 8
 export const showBeforeCurrentDate = 3
 
 export const fetchDate = () => async(dispatch, getState) => {
-    const getDate = new Promise((resolve, reject) => {
+    const getDate = new Promise((resolve) => {
         const { task: { task } } = getState()
         const startDay = moment().subtract(showBeforeCurrentDate + 1, 'days')
         const totalDayCount = showBeforeCurrentDate + showAfterCurrentDate + 1
@@ -31,6 +33,7 @@ export const fetchDate = () => async(dispatch, getState) => {
 
     await getDate.then(res => {
         dispatch({ type: SAVE_AVAILABLEDATE, availableDate: res })
+        dispatch(fetchDateNotif())
     })
    
 }
