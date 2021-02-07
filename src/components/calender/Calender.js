@@ -15,7 +15,6 @@ const Calender = props => {
     const availableDate = useSelector(state => state.availableDate.date)
 
     const toDetailTaskDate = (date) => {
-        console.log(moment(date).format("MMMM DD YYYY"))
         Navigation.push(props.componentId, {
             component: {
                 name: 'DateDetail',

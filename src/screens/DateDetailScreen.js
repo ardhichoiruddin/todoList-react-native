@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { FlatList, View, ActivityIndicator } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import moment from 'moment'
@@ -10,7 +10,8 @@ import TaskEmpty from '@components/taskEmpty/TaskEmpty'
 
 import { SAVE_TASKCOMPLETE } from '@modules/taskComplete/types'
 import { DELETE_TASK } from '@modules/task/types'
-import { fetchDate } from '@modules/availableDate/actions'
+
+import { fetchDateBySelect } from '@modules/dateBySelect/actions'
 
 import { colors } from '@constant/colors'
 
@@ -19,29 +20,17 @@ const DateDetailScreen = props => {
 
     const dispatch = useDispatch()
 
-    const taskItem = useSelector(state => state.task.task)
-
-    const [loading, setLoading] = useState(false)
+    const { dateBySelect, loading } = useSelector(state => state.dateBySelect)
 
     const { date } = props
-
-    const [data, setData] = useState([])
-
-    const getData = async() => {
-        setLoading(true)
-        const getTask = new Promise((resolve) => {
-            const dateDetail = taskItem.filter(item => moment(date).isSame(moment(item.dateTask.dateMoment).format("YYYY-MM-DD")) === true)
-            if(dateDetail){
-                resolve(dateDetail)
-            }
-        })
-        await getTask.then(res => setData(res))
+   
+    const getData = () => {
+        dispatch(fetchDateBySelect(date))
     }
 
     const toCompleteTask = (completeId, completeData) => {
         dispatch({ type: SAVE_TASKCOMPLETE, data: completeData })
         dispatch({ type: DELETE_TASK, taskId: completeId })
-        dispatch(fetchDate())
         getData()
     }
 
@@ -55,9 +44,9 @@ const DateDetailScreen = props => {
 
     const itemResult = () => (
         <View>
-            { data.length > 0 ? (
+            { dateBySelect.length > 0 ? (
                 <FlatList
-                    data={data}
+                    data={dateBySelect}
                     keyExtractor={item => item.id}
                     renderItem={renderItem}
                 />
@@ -71,20 +60,15 @@ const DateDetailScreen = props => {
    
     useEffect(() => {
         getData()
-        setTimeout(() => {
-            setLoading(false)
-        }, 1000)
     },[])
 
     return (
         <Container>
-            { loading && (
+            { loading ? (
                 <View style={apply("flex justify-center items-center")}>
                     <ActivityIndicator size="large" color={colors.primaryColor} />
                 </View>
-            ) }
-            
-            { !loading && itemResult() }
+            ) : itemResult() }
           
         </Container>
     )

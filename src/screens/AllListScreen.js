@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react'
+import React, { useEffect, useRef, useCallback } from 'react'
 import { Navigation } from 'react-native-navigation'
 import { apply } from 'osmicsx'
 import { FlatList, LogBox, StyleSheet, View, Animated } from 'react-native'
@@ -58,6 +58,7 @@ const AllListScreen = props => {
     
     const getNotifNow = () => {
         if(taskNotifNow){
+            console.log(taskNotifNow)
             taskNotifNow.forEach((item) => {
                 pushNotificationSchedule(
                     'channel-id',
@@ -72,7 +73,6 @@ const AllListScreen = props => {
 
     const componentDidAppearHandler = () => {
         dispatch(fetchDate())
-        console.log(idCategory)
         dispatch(fetchData())
     }
 

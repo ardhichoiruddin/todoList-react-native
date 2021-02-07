@@ -11,6 +11,7 @@ import idFilterCategoryReducer from '@modules/idFilterCategory/reducers'
 import availableDateReducer from '@modules/availableDate/reducers'
 import taskByCategoryReducer from '@modules/selectTaskByCat/reducers'
 import notificationNowReducer from '@modules/notificationNow/reducers'
+import dateBySelectReducer from '@modules/dateBySelect/reducers'
 
 
 const rootReducer = combineReducers({
@@ -21,14 +22,15 @@ const rootReducer = combineReducers({
     idCategory: idFilterCategoryReducer,
     availableDate : availableDateReducer,
     taskByCategory : taskByCategoryReducer,
-    notificationNow: notificationNowReducer
+    notificationNow: notificationNowReducer,
+    dateBySelect: dateBySelectReducer
 })
 
 const persistConfig = {
     key: 'root',
     storage: AsyncStorage,
     whitelist: ['category', 'task', 'taskComplete', 'colors'],
-    blacklist: ['availableDate', 'taskByCategory', 'notificationNow', 'idCategory']
+    blacklist: ['availableDate', 'taskByCategory', 'notificationNow', 'idCategory', 'dateBySelect']
 }
 
 const persistedReduce = persistReducer(persistConfig, rootReducer)
