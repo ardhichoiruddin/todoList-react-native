@@ -12,6 +12,7 @@ import availableDateReducer from '@modules/availableDate/reducers'
 import taskByCategoryReducer from '@modules/selectTaskByCat/reducers'
 import notificationNowReducer from '@modules/notificationNow/reducers'
 import dateBySelectReducer from '@modules/dateBySelect/reducers'
+import firstOpenReducer from '@modules/firstOpen/reducers'
 
 
 const rootReducer = combineReducers({
@@ -23,13 +24,14 @@ const rootReducer = combineReducers({
     availableDate : availableDateReducer,
     taskByCategory : taskByCategoryReducer,
     notificationNow: notificationNowReducer,
-    dateBySelect: dateBySelectReducer
+    dateBySelect: dateBySelectReducer,
+    firstOpen: firstOpenReducer
 })
 
 const persistConfig = {
     key: 'root',
     storage: AsyncStorage,
-    whitelist: ['category', 'task', 'taskComplete', 'colors'],
+    whitelist: ['category', 'task', 'taskComplete', 'colors', 'firstOpen'],
     blacklist: ['availableDate', 'taskByCategory', 'notificationNow', 'idCategory', 'dateBySelect']
 }
 

@@ -1,13 +1,13 @@
 import { Navigation } from 'react-native-navigation'
 
-export const mainRoot = () => {
+export const onBordingRoot = () => {
     return {
         root: {
             stack: {
                 children: [
                     {
                         component: {
-                            name: 'AllList'
+                            name: 'OnBoarding'
                         }
                     }
                 ]
@@ -15,13 +15,3 @@ export const mainRoot = () => {
         }
     }
 };
-
-Navigation.setDefaultOptions({
-    statusBar: {
-        backgroundColor: 'white',
-        translucent: true
-    },
-    topBar: {
-        elevation: 2
-    }
-});
