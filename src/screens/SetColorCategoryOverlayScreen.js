@@ -7,6 +7,8 @@ import { Navigation } from 'react-native-navigation'
 import { SAVE_COLOR } from '@modules/colors/types'
 import { colors } from '@constant/colors'
 
+import FadeUpAnimation from '@components/fadeUpAnimation/FadeUpAnimation'
+
 const choiceColor = [
     '#0077b6',
     '#e85d04',
@@ -46,7 +48,7 @@ const SetColorCategoryOverlayScreen = props => {
 
     return (
         <View style={apply("px-4 flex justify-center items-center")}>
-           <View style={apply("p-6 bg-white full rounded-lg overflow-hidden shadow-lg absolute z-30")}>
+           <FadeUpAnimation style={apply("p-6 bg-white full rounded-lg overflow-hidden shadow-lg absolute z-30")}>
                 <View>
                     <Text style={[apply("text-center text-xl mb-6"), styles.categoryModalTitle]}>Choose a Color for Category</Text>
                 </View>
@@ -62,7 +64,7 @@ const SetColorCategoryOverlayScreen = props => {
                         </TouchableHighlight>
                     )) }
                 </View>
-            </View>
+            </FadeUpAnimation>
             <View 
                 style={[apply("absolute top-0 bottom-0 z-0"), styles.backdrop]}
                 onStartShouldSetResponder={() => hideOverlay()}

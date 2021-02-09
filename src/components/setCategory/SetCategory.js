@@ -17,7 +17,7 @@ const SetCategory = props => {
                         <TouchableHighlight
                             style={[apply("absolute top-0 right-0 justify-center items-center"), styles.buttonDelete]}
                             onPress={() => {
-                                props.deleteCategory && props.deleteCategory(item.id)
+                                props.deleteCategory && props.deleteCategory(item.id, item.name)
                             }}
                         >
                             <Icon name="delete" size={18} color="white"/>

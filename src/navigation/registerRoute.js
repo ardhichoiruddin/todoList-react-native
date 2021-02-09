@@ -13,6 +13,8 @@ import OnBoardingScreen from '@screen/OnBoardingScreen'
 import LoadingAuthScreen from '@screen/LoadingAuthScreen'
 import AddCategoryOverlayScreen from '@screen/AddCategoryOverlayScreen'
 import SetColorCategoryOverlayScreen from '@screen/SetColorCategoryOverlayScreen'
+import DeleteCategoryOverlayScreen from '@screen/DeleteCategoryOverlayScreen'
+
 
 export const registerRoute = () => {
 
@@ -28,6 +30,7 @@ export const registerRoute = () => {
     Screens.set('LoadingAuth', LoadingAuthScreen)
     Screens.set('AddCategoryOverlay', AddCategoryOverlayScreen)
     Screens.set('SetColorCategoryOverlay', SetColorCategoryOverlayScreen)
+    Screens.set('DeleteCategoryOverlay', DeleteCategoryOverlayScreen)
 
     Screens.forEach((C, key) => {
         Navigation.registerComponent(key, () => gestureHandlerRootHOC(storeProvider(C)), () => C)

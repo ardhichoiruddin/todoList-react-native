@@ -8,7 +8,9 @@ import { Navigation } from 'react-native-navigation'
 
 import { colors } from '@constant/colors'
 import { SAVE_CATEGORY } from '@modules/category/types'
+
 import SelectColor from '@components/selectColor/SelectColor'
+import FadeUpAnimation from '@components/fadeUpAnimation/FadeUpAnimation'
 
 
 const { width, height } = Dimensions.get('screen')
@@ -64,57 +66,57 @@ const AddCategoryOverlayScreen = props => {
         }
     },[])
 
-
-
     return(
         <View style={apply("px-4 flex justify-center items-center")}>
-            <View style={[apply("px-4 py-6 bg-white full rounded-lg shadow-lg absolute z-30"), { minHeight: 200 }]}>
+            <FadeUpAnimation style={apply("px-4 py-6 bg-white full rounded-lg shadow-lg absolute z-30")}>
                 <View>
-                    <Text style={[apply("text-center text-xl mb-6"), styles.categoryModalTitle]}>Add Category</Text>
-                </View>
-                <View>
-                    <Controller
-                        name="categoryName"
-                        control={control}
-                        rules={{ required: 'This is required' }}
-                        render={(props) => (
-                            <TextInput
-                                {...props}
-                                label="Name Categor"
-                                mode="outlined"
-                                placeholder="Write name your category"
-                                onChangeText={text => {
-                                    props.onChange(text)
-                                }}
+                    <View>
+                        <Text style={[apply("text-center text-xl mb-6"), styles.categoryModalTitle]}>Add Category</Text>
+                    </View>
+                    <View>
+                        <View>
+                            <Controller
+                                name="categoryName"
+                                control={control}
+                                rules={{ required: 'This is required' }}
+                                render={(props) => (
+                                    <TextInput
+                                        {...props}
+                                        label="Name Categor"
+                                        mode="outlined"
+                                        placeholder="Write name your category"
+                                        onChangeText={text => {
+                                            props.onChange(text)
+                                        }}
+                                    />
+                                )}
                             />
-                        )}
-                    />
-                </View>
-                <View>
-                    <View style={apply("row items-center wrap mt-4")}>
-                        { errors.bgColor && <ErrorMessage message={errors.bgColor.message} /> }
-                        <SelectColor
-                            state={bgColor}
-                            setState={bgColorHandler}
-                        />
+                        </View>
+                        <View>
+                            <View style={apply("row items-center wrap mt-4")}>
+                                { errors.bgColor && <ErrorMessage message={errors.bgColor.message} /> }
+                                <SelectColor
+                                    state={bgColor}
+                                    setState={bgColorHandler}
+                                />
+                            </View>
+                        </View>
+                        <View style={apply("mt-6")}>
+                            <Button
+                                mode="contained"
+                                onPress={handleSubmit(handlerSubmit)}
+                                style={[apply("px-4 py-2 rounded-lg"), styles.buttonSave]}
+                            >
+                                <Text style={[apply("text-lg font-bold text-white"), styles.textButton]}>Save Category</Text>
+                            </Button>
+                        </View>
                     </View>
                 </View>
-                <View style={apply("mt-6")}>
-                    <Button
-                        mode="contained"
-                        onPress={handleSubmit(handlerSubmit)}
-                        style={[apply("px-4 py-2 rounded-lg"), styles.buttonSave]}
-                    >
-                        <Text style={[apply("text-lg font-bold text-white"), styles.textButton]}>Save Category</Text>
-                    </Button>
-                </View>
-            </View>
+            </FadeUpAnimation>
             <View 
                 style={[apply("absolute top-0 bottom-0 z-0"), styles.backdrop]}
                 onStartShouldSetResponder={() => hideOverlay()}
-            >
-
-            </View>
+            />
         </View>
                     
     )

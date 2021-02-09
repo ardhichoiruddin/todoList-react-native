@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableHighlight } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { apply } from 'osmicsx'
 import { Navigation } from 'react-native-navigation'
-import { Button, Snackbar } from 'react-native-paper'
+import { Snackbar } from 'react-native-paper'
 
 import { colors } from '@constant/colors'
 
@@ -43,12 +43,28 @@ const SettingsScreen = () => {
         dispatch({ type: DELETE_COLOR, colorId : id })
     }
 
-    const deleteCategory = (id) => {
+    const deleteCategory = (id, name) => {
         const existingTask = taskItem.find(item => item.category.id === id)
         if(existingTask){
             setSnackBarVisible(true)
         }else{
-            console.log("Mulai hapus")
+            Navigation.showOverlay({
+                component: {
+                    name: 'DeleteCategoryOverlay',
+                    options: {
+                        layout: {
+                                componentBackgroundColor: 'rgba(0,0,0,0.5)',
+                            },
+                        overlay: {
+                            interceptTouchOutside: true
+                        }
+                    },
+                    passProps: {
+                        id: id,
+                        name: name
+                    }
+                }
+            })
         }
     }
 

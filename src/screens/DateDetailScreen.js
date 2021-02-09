@@ -42,7 +42,7 @@ const DateDetailScreen = props => {
     )
 
     const itemResult = () => (
-        <View>
+        <>
             { dateBySelect.length > 0 ? (
                 <FlatList
                     data={dateBySelect}
@@ -54,7 +54,7 @@ const DateDetailScreen = props => {
                     message="Task Empty"
                 />
             )}
-        </View>
+        </>
     )
    
     useEffect(() => {

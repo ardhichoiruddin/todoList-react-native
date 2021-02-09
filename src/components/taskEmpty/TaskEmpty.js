@@ -9,7 +9,7 @@ const TaskEmpty = props => {
         <View 
             style={
                 [
-                    apply("full items-center justify-center"),
+                    apply("flex full items-center justify-center"),
                 ]
             }
         >
