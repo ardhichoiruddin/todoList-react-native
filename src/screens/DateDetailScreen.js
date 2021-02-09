@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { FlatList, View, ActivityIndicator } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
-import moment from 'moment'
 import { apply } from 'osmicsx'
 
 import Container from '@components/layout/Container'

@@ -3,12 +3,12 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '11.0'
 
-target 'boilerplate_reactredux_nativenavigation' do
+target 'TodoListApp' do
   config = use_native_modules!
 
   use_react_native!(:path => config["reactNativePath"])
 
-  target 'boilerplate_reactredux_nativenavigationTests' do
+  target 'TodoListAppTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -23,10 +23,10 @@ target 'boilerplate_reactredux_nativenavigation' do
   end
 end
 
-target 'boilerplate_reactredux_nativenavigation-tvOS' do
-  # Pods for boilerplate_reactredux_nativenavigation-tvOS
+target 'TodoListApp-tvOS' do
+  # Pods for TodoListApp-tvOS
 
-  target 'boilerplate_reactredux_nativenavigation-tvOSTests' do
+  target 'TodoListApp-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

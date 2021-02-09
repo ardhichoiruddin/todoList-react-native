@@ -18,7 +18,6 @@ export const mainRoot = () => {
 
 Navigation.setDefaultOptions({
     statusBar: {
-        backgroundColor: 'white',
         translucent: true
     },
     topBar: {

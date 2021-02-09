@@ -1,15 +1,12 @@
 import React, { useEffect } from 'react'
 import { View, StatusBar } from 'react-native'
-import RNBootSplash from 'react-native-bootsplash'
 import { apply } from 'osmicsx'
 
 import OnBoardingItem from '@components/onBoardingItem/OnBoardingItem'
 import Swipper from '@components/swipper/Swipper'
 
 const OnBoardingScreen = () => {
-
     useEffect(() => {
-        RNBootSplash.hide({ fade: true })
         StatusBar.setHidden(true)
     },[])
 

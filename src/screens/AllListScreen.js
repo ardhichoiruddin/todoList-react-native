@@ -3,7 +3,6 @@ import { Navigation } from 'react-native-navigation'
 import { apply } from 'osmicsx'
 import { FlatList, LogBox, StyleSheet, View, Animated } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
-import RNBootSplash from 'react-native-bootsplash'
 import moment from 'moment'
 
 import { colors } from '@constant/colors'
@@ -22,7 +21,6 @@ import TaskBoxItem from '@components/taskBoxItem/TaskBoxItem'
 import pushNotificationSchedule from '@components/pushNotification/pushNotificationSchedule'
 
 const heightTopAnimate = 307
-
 
 const AllListScreen = props => {
 
@@ -78,7 +76,6 @@ const AllListScreen = props => {
 
     useEffect(() => {
         LogBox.ignoreLogs(['VirtualizedLists should never be nested'])
-        RNBootSplash.hide({ fade: true })
         dispatch(fetchDate())
  
         getNotifNow()

@@ -1,12 +1,12 @@
 
-export const onBordingRoot = () => {
+export const authRoot = () => {
     return {
         root: {
             stack: {
                 children: [
                     {
                         component: {
-                            name: 'OnBoarding'
+                            name: 'LoadingAuth'
                         }
                     }
                 ]

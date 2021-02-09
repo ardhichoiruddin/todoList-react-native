@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "boilerplate_reactredux_nativenavigation.app"
-               BlueprintName = "boilerplate_reactredux_nativenavigation"
-               ReferencedContainer = "container:boilerplate_reactredux_nativenavigation.xcodeproj">
+               BuildableName = "TodoListApp.app"
+               BlueprintName = "TodoListApp"
+               ReferencedContainer = "container:TodoListApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "boilerplate_reactredux_nativenavigationTests.xctest"
-               BlueprintName = "boilerplate_reactredux_nativenavigationTests"
-               ReferencedContainer = "container:boilerplate_reactredux_nativenavigation.xcodeproj">
+               BuildableName = "TodoListAppTests.xctest"
+               BlueprintName = "TodoListAppTests"
+               ReferencedContainer = "container:TodoListApp.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "boilerplate_reactredux_nativenavigation.app"
-            BlueprintName = "boilerplate_reactredux_nativenavigation"
-            ReferencedContainer = "container:boilerplate_reactredux_nativenavigation.xcodeproj">
+            BuildableName = "TodoListApp.app"
+            BlueprintName = "TodoListApp"
+            ReferencedContainer = "container:TodoListApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "boilerplate_reactredux_nativenavigation.app"
-            BlueprintName = "boilerplate_reactredux_nativenavigation"
-            ReferencedContainer = "container:boilerplate_reactredux_nativenavigation.xcodeproj">
+            BuildableName = "TodoListApp.app"
+            BlueprintName = "TodoListApp"
+            ReferencedContainer = "container:TodoListApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -10,6 +10,7 @@ import SettingsScreen from '@screen/SettingsScreen'
 import DetailTaskScreen from '@screen/DetailTaskScreen'
 import DateDetailScreen from '@screen/DateDetailScreen'
 import OnBoardingScreen from '@screen/OnBoardingScreen'
+import LoadingAuthScreen from '@screen/LoadingAuthScreen'
 
 export const registerRoute = () => {
 
@@ -22,6 +23,7 @@ export const registerRoute = () => {
     Screens.set('DetailTask', DetailTaskScreen)
     Screens.set('DateDetail', DateDetailScreen)
     Screens.set('OnBoarding', OnBoardingScreen)
+    Screens.set('LoadingAuth', LoadingAuthScreen)
 
     Screens.forEach((C, key) => {
         Navigation.registerComponent(key, () => gestureHandlerRootHOC(storeProvider(C)), () => C)
