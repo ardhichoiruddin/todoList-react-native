@@ -2,116 +2,23 @@ import React, { useState, useEffect } from 'react'
 import { View, Text, TouchableHighlight, StyleSheet, ScrollView, Modal as ModalWrapper, Alert } from 'react-native'
 import { Navigation } from 'react-native-navigation'
 import { apply } from 'osmicsx'
-import { TextInput, Button, Modal, Portal, Provider } from 'react-native-paper'
+import { TextInput, Button } from 'react-native-paper'
 import DateTimePickerModal from 'react-native-modal-datetime-picker'
 import { useDispatch, useSelector } from 'react-redux'
 import moment from 'moment'
 import { useForm, Controller } from 'react-hook-form'
 
 import { colors } from '@constant/colors'
-import SelectColor from '@components/selectColor/SelectColor'
+
 import SelectCategory from '@components/selectCategory/SelectCategory'
 import Container from '@components/layout/Container'
 
-import { SAVE_CATEGORY } from '@modules/category/types'
 import { SAVE_TASK } from '@modules/task/types'
 import { fetchDate } from '@modules/availableDate/actions'
 
-const AddCategory = props => {
-
-    const dispatch = useDispatch()
-
-    const { control, handleSubmit, errors, register, setValue, getValues } = useForm({
-        defaultValues: {
-            categoryName: '',
-            bgColor: ''
-        }
-    })
-
-    const [bgColor, setBgColor] = useState(null)
-
-    const bgColorHandler = (color) => {
-        setValue('bgColor', color)
-        setBgColor(color)
-    }
-
-    const handlerSubmit = () => {
-
-        const categoryName = getValues('categoryName')
-        const backgroundColor = getValues('bgColor')
-        dispatch({ type: SAVE_CATEGORY, category: categoryName, bgColor: backgroundColor })
-        props.onDismiss()
-
-    }
-
-    useEffect(() => {
-        register('bgColor', { required: 'This is required' })
-        return () => {
-            setBgColor(null)
-        }
-    },[])
-
-    return(
-        <ModalWrapper
-            animationType="fade"
-            transparent={true}
-            visible={props.visible}
-            onRequestClose={props.onDismiss}
-        >
-            <Provider>
-                <Portal>
-                    <Modal visible={props.visible} onDismiss={props.onDismiss} contentContainerStyle={apply("px-4 py-6")}>
-                        <View style={[apply("px-4 py-6 bg-white full rounded-lg shadow-lg"), { minHeight: 200 }]}>
-                            <View>
-                                <Text style={[apply("text-center text-xl mb-6"), styles.categoryModalTitle]}>Add Category</Text>
-                            </View>
-                            <View>
-                                <Controller
-                                    name="categoryName"
-                                    control={control}
-                                    rules={{ required: 'This is required' }}
-                                    render={(props) => (
-                                        <TextInput
-                                            {...props}
-                                            label="Name Categor"
-                                            mode="outlined"
-                                            placeholder="Write name your category"
-                                            onChangeText={text => {
-                                                props.onChange(text)
-                                            }}
-                                        />
-                                    )}
-                                />
-                            </View>
-                            <View>
-                                <View style={apply("row items-center wrap mt-4")}>
-                                    { errors.bgColor && <ErrorMessage message={errors.bgColor.message} /> }
-                                    <SelectColor
-                                        state={bgColor}
-                                        setState={bgColorHandler}
-                                    />
-                                </View>
-                            </View>
-                            <View style={apply("mt-6")}>
-                                <Button
-                                    mode="contained"
-                                    onPress={handleSubmit(handlerSubmit)}
-                                    style={[apply("px-4 py-2 rounded-lg"), styles.buttonSave]}
-                                >
-                                    <Text style={[apply("text-lg font-bold text-white"), styles.textButton]}>Save Category</Text>
-                                </Button>
-                            </View>
-                        </View>
-                    </Modal>
-                </Portal>
-            </Provider>
-        </ModalWrapper>
-    )
-}
-
-const ErrorMessage = ({message}) => (
+const ErrorMessage = ({ message }) => (
     <View>
-        <Text style={apply("text-red-400")}>{ message }</Text>
+        <Text style={apply("text-red-400")}>{message}</Text>
     </View>
 )
 
@@ -136,14 +43,10 @@ const AddTaskScreen = props => {
     })
     const [modalDate, setModalDate] = useState(false)
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false)
-    const [addCatModal, setAddCatModal] = useState(false)
-
-    const hideModalAddCat = () => setAddCatModal(false)
-    const showModalAddCat = () => setAddCatModal(true)
 
     const hideModalDate = () => setModalDate(false)
     const showModalDate = () => setModalDate(true)
-    const handleModalDate = (date) => { 
+    const handleModalDate = (date) => {
         setValue('dateTask', {
             dateDisplay: moment(date).format('DD MMMM YYYY'),
             dateMoment: moment(date).format()
@@ -151,10 +54,10 @@ const AddTaskScreen = props => {
         hideModalDate()
     }
 
-    const showDatePicker = () =>  setDatePickerVisibility(true)
-    const hideDatePicker = () =>  setDatePickerVisibility(false)
+    const showDatePicker = () => setDatePickerVisibility(true)
+    const hideDatePicker = () => setDatePickerVisibility(false)
     const handleConfirm = (time) => {
-        setValue('timeTask',  moment(time).format('hh:mm a'))
+        setValue('timeTask', moment(time).format('hh:mm a'))
         hideDatePicker()
     }
 
@@ -167,13 +70,30 @@ const AddTaskScreen = props => {
     }
 
     const onSubmit = (dt) => {
-        if(dt){
+        if (dt) {
             dispatch({ type: SAVE_TASK, data: dt })
             Navigation.popToRoot(props.componentId)
         }
     }
 
-    useEffect(() =>{
+    const showModalAddCategory = () => {
+
+        Navigation.showOverlay({
+            component: {
+                name: 'AddCategoryOverlay',
+                options: {
+                    layout: {
+                            componentBackgroundColor: 'rgba(0,0,0,0.5)',
+                        },
+                    overlay: {
+                        interceptTouchOutside: true
+                    }
+                }
+            }
+        })
+    }
+
+    useEffect(() => {
 
         register('category', { required: 'This is required' })
 
@@ -183,7 +103,7 @@ const AddTaskScreen = props => {
                 category: {}
             })
         }
-    },[])
+    }, [])
 
     return (
         <Container>
@@ -193,7 +113,7 @@ const AddTaskScreen = props => {
             >
 
                 <View>
-                    
+
                     <View>
                         <Controller
                             name="nameTask"
@@ -208,11 +128,11 @@ const AddTaskScreen = props => {
                                     onChangeText={text => {
                                         props.onChange(text)
                                     }}
-                                style={styles.textOpenSans}
-                            />
+                                    style={styles.textOpenSans}
+                                />
                             )}
                         />
-                        
+
                     </View>
 
                     <View style={apply("mt-5")}>
@@ -229,8 +149,8 @@ const AddTaskScreen = props => {
                                     onChangeText={text => {
                                         props.onChange(text)
                                     }}
-                            style={styles.textOpenSans}
-                            />
+                                    style={styles.textOpenSans}
+                                />
                             )}
                         />
                     </View>
@@ -284,7 +204,7 @@ const AddTaskScreen = props => {
                                             size={30}
                                         />
                                     }
-                            />
+                                />
                             )}
                         />
                     </View>
@@ -292,7 +212,7 @@ const AddTaskScreen = props => {
                     <View style={apply("mt-8")}>
                         <View>
                             <Text style={[apply("text-lg font-semibold"), styles.categoryTitle]}>Category</Text>
-                            { errors.category && <ErrorMessage message={errors.category.message} /> }
+                            {errors.category && <ErrorMessage message={errors.category.message} />}
                             <View style={apply("full mt-4 mb-3")}>
                                 <SelectCategory
                                     data={categoryItem.category}
@@ -303,7 +223,7 @@ const AddTaskScreen = props => {
 
                             <View styles={apply("full")}>
                                 <TouchableHighlight
-                                    onPress={showModalAddCat}
+                                    onPress={showModalAddCategory}
                                     underlayColor="transparent"
                                 >
                                     <Text style={[apply("text-base"), styles.addCategory]}>+ Add category</Text>
@@ -328,10 +248,6 @@ const AddTaskScreen = props => {
             </ScrollView>
 
             {/* Modal Area */}
-            <AddCategory
-                visible={addCatModal}
-                onDismiss={hideModalAddCat}
-            />
 
             <DateTimePickerModal
                 isVisible={modalDate}
@@ -346,7 +262,7 @@ const AddTaskScreen = props => {
                 onConfirm={handleConfirm}
                 onCancel={hideDatePicker}
             />
-        
+
         </Container>
     )
 }
@@ -397,8 +313,5 @@ const styles = StyleSheet.create({
     buttonSave: {
         backgroundColor: colors.primaryColor
     },
-    categoryModalTitle: {
-        fontFamily: 'OpenSans-SemiBold',
-        color: colors.primaryColor
-    }
+
 })

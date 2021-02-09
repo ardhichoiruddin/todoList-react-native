@@ -1,63 +1,55 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { apply } from 'osmicsx'
+import { Navigation } from 'react-native-navigation'
+import { Button, Snackbar } from 'react-native-paper'
 
 import { colors } from '@constant/colors'
 
-import { SAVE_COLOR, DELETE_COLOR } from '@modules/colors/types'
+import { DELETE_COLOR } from '@modules/colors/types'
 
 import Container from '@components/layout/Container'
 import AddColor from '@components/addColor/AddColor'
-import ModalWrapper from '@components/layout/ModalWrapper'
-
-
-const choiceColor = [
-    '#0077b6',
-    '#e85d04',
-    '#7209b7',
-    '#f72585',
-    '#ffd166',
-    '#43aa8b',
-    '#ffddd2',
-    '#f28482',
-    '#ef476f'
-]
-
-const Picker = props => (
-    <View style={apply("p-6 bg-white full rounded-lg overflow-hidden")}>
-        <Text styles={apply("text-center full text-6xl")}>Choose a Color</Text>
-        <View style={apply("row wrap justify-between mt-4")}>
-            { choiceColor.map((item, index) => (
-                <TouchableHighlight 
-                    key={index}
-                    onPress={() => {
-                        props.selectColor(item)
-                    }}
-                >
-                    <View style={[apply("mb-2") ,styles.boxColorChoice, { backgroundColor: item }]} />
-                </TouchableHighlight>
-            )) }
-        </View>
-    </View>
-)
+import SetCategory from '@components/setCategory/SetCategory'
 
 
 const SettingsScreen = () => {
 
     const dispatch = useDispatch()
 
-    const [showModalAddColor, setShowModalAddColor] = useState(false)
+    const categoryItem = useSelector(state => state.category.category)
+    const taskItem = useSelector(state => state.task.task)
+   
+    const [snackbarVisible, setSnackBarVisible] = useState(false)
 
-    const addColorHandler = (color) => {
-        dispatch({ type: SAVE_COLOR, color })
-        setShowModalAddColor(false)
+    const showModalAddColorhandler = () => {
+        Navigation.showOverlay({
+            component: {
+                name: 'SetColorCategoryOverlay',
+                options: {
+                    layout: {
+                            componentBackgroundColor: 'rgba(0,0,0,0.5)',
+                        },
+                    overlay: {
+                        interceptTouchOutside: true
+                    }
+                }
+            }
+        })
     }
-
-    const showModalAddColorhandler = () =>  setShowModalAddColor(true)
-    const hideModalAddColorhandler = () => setShowModalAddColor(false)
+  
     const deleteColor = (id) => {
         dispatch({ type: DELETE_COLOR, colorId : id })
+    }
+
+    const deleteCategory = (id) => {
+        const existingTask = taskItem.find(item => item.category.id === id)
+        if(existingTask){
+            setSnackBarVisible(true)
+        }else{
+            console.log("Mulai hapus")
+        }
     }
 
     return (
@@ -77,15 +69,29 @@ const SettingsScreen = () => {
                     <Text style={[apply("text-sm")]}>+ Add color</Text>
                 </TouchableHighlight>
             </View>
-            <ModalWrapper
-                visible={showModalAddColor}
-                onDismiss={hideModalAddColorhandler}
-                renderComponent={(
-                    <Picker
-                        selectColor={addColorHandler}
+            <View style={apply("mt-10")}>
+                <Text style={[apply("text-sm"), styles.textTitle]}>Set Category</Text>
+                <View>
+                    <SetCategory
+                        categoryItem={categoryItem}
+                        deleteCategory={deleteCategory}
                     />
-                )}
-            />
+                </View>
+            </View>
+            <Snackbar
+                visible={snackbarVisible}
+                style={apply("full")}
+                onDismiss={() =>{
+                    setSnackBarVisible(false)
+                }}
+                action={{
+                    label: 'Close',
+                    onPress: () => {
+                        setSnackBarVisible(false)
+                    },
+                }}>
+                Sorry, there are tasks associated with this category
+            </Snackbar>
         </Container>
     )
 }
@@ -113,10 +119,5 @@ const styles = StyleSheet.create({
     textTitle: {
         fontFamily: 'OpenSans-SemiBold',
         color: colors.primaryColor
-    },
-    boxColorChoice: {
-        width: 80,
-        height: 80,
-        borderRadius: 60
     }
 })

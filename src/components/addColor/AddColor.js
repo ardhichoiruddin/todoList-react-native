@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import { View, Text, TouchableHighlight, StyleSheet } from 'react-native'
+import { View, TouchableHighlight, StyleSheet } from 'react-native'
 import { apply } from 'osmicsx'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { useSelector } from 'react-redux'

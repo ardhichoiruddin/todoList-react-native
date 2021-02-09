@@ -11,6 +11,8 @@ import DetailTaskScreen from '@screen/DetailTaskScreen'
 import DateDetailScreen from '@screen/DateDetailScreen'
 import OnBoardingScreen from '@screen/OnBoardingScreen'
 import LoadingAuthScreen from '@screen/LoadingAuthScreen'
+import AddCategoryOverlayScreen from '@screen/AddCategoryOverlayScreen'
+import SetColorCategoryOverlayScreen from '@screen/SetColorCategoryOverlayScreen'
 
 export const registerRoute = () => {
 
@@ -24,6 +26,8 @@ export const registerRoute = () => {
     Screens.set('DateDetail', DateDetailScreen)
     Screens.set('OnBoarding', OnBoardingScreen)
     Screens.set('LoadingAuth', LoadingAuthScreen)
+    Screens.set('AddCategoryOverlay', AddCategoryOverlayScreen)
+    Screens.set('SetColorCategoryOverlay', SetColorCategoryOverlayScreen)
 
     Screens.forEach((C, key) => {
         Navigation.registerComponent(key, () => gestureHandlerRootHOC(storeProvider(C)), () => C)
