@@ -20,6 +20,7 @@ const SettingsScreen = () => {
 
     const categoryItem = useSelector(state => state.category.category)
     const taskItem = useSelector(state => state.task.task)
+    const taskCompleteItem = useSelector(state => state.taskComplete.taskComplete)
    
     const [snackbarVisible, setSnackBarVisible] = useState(false)
 
@@ -45,7 +46,10 @@ const SettingsScreen = () => {
 
     const deleteCategory = (id, name) => {
         const existingTask = taskItem.find(item => item.category.id === id)
+        const existingTaskComplete = taskCompleteItem.find(item => item.category.id === id)
         if(existingTask){
+            setSnackBarVisible(true)
+        }else if(existingTaskComplete){
             setSnackBarVisible(true)
         }else{
             Navigation.showOverlay({

@@ -50,6 +50,7 @@ export default Calender
 
 const styles = StyleSheet.create({
     callenderWrapper: {
-        backgroundColor: colors.primaryColor
+        backgroundColor: colors.primaryColor,
+        height: 140
     }
 })

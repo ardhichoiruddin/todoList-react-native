@@ -67,7 +67,7 @@ export default DeleteCategoryOverlayScreen
 
 const styles = StyleSheet.create({
     buttonDelete: {
-        backgroundColor: colors.primaryColor
+        backgroundColor: colors.warningColor
     },
     textButton: {
         fontFamily: 'OpenSans-SemiBold',

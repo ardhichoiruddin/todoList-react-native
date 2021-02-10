@@ -1,6 +1,6 @@
 import Immutable from 'seamless-immutable'
 
-import { SAVE_NOTIFICATIONNOW } from './types'
+import { SAVE_NOTIFICATIONNOW, DELETE_NOTIFICATIONNOW } from './types'
 
 const initialState = Immutable({
     notifTaskNow: []
@@ -11,6 +11,10 @@ const notificationNowReducer = (state = initialState, action) => {
         case SAVE_NOTIFICATIONNOW:
             return{
                 notifTaskNow: action.data
+            }
+        case DELETE_NOTIFICATIONNOW:
+            return{
+                notifTaskNow: []
             }
         default:
             return state

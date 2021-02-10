@@ -9,6 +9,7 @@ import TaskEmpty from '@components/taskEmpty/TaskEmpty'
 
 import { SAVE_TASKCOMPLETE } from '@modules/taskComplete/types'
 import { DELETE_TASK } from '@modules/task/types'
+import { DELETE_ALLDATEBYSELECT } from '@modules/dateBySelect/types'
 
 import { fetchDateBySelect } from '@modules/dateBySelect/actions'
 
@@ -59,6 +60,9 @@ const DateDetailScreen = props => {
    
     useEffect(() => {
         getData()
+        return() => {
+            dispatch({ type: DELETE_ALLDATEBYSELECT })
+        }
     },[])
 
     return (

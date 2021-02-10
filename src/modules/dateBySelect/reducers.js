@@ -1,7 +1,7 @@
 
 import Immutable from 'seamless-immutable'
 
-import { SAVE_DATEBYSELECT, LOADING_TRUEDATEBYSELECT, LOADING_FALSEDATEBYSELECT } from './types'
+import { SAVE_DATEBYSELECT, LOADING_TRUEDATEBYSELECT, LOADING_FALSEDATEBYSELECT, DELETE_ALLDATEBYSELECT } from './types'
 
 const initialState = Immutable({
     dateBySelect: [],
@@ -23,6 +23,11 @@ const dateBySelectReducer = (state = initialState, action) => {
         case LOADING_FALSEDATEBYSELECT:
             return{
                 ...state,
+                loading: false
+            }
+        case DELETE_ALLDATEBYSELECT:
+            return{
+                dateBySelect: [],
                 loading: false
             }
         default:

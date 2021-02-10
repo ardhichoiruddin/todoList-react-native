@@ -9,8 +9,10 @@ import { colors } from '@constant/colors'
 import { SAVE_TASKCOMPLETE } from '@modules/taskComplete/types'
 import { DELETE_TASK } from '@modules/task/types'
 import { SAVE_IDCATEGORY } from '@modules/idFilterCategory/types'
+import { DELETE_NOTIFICATIONNOW } from '@modules/notificationNow/types'
 import { fetchDate } from '@modules/availableDate/actions'
 import { fetchData } from '@modules/selectTaskByCat/actions'
+import { fetchDateNotif } from '@modules/notificationNow/actions'
 
 import Calender from "@components/calender/Calender"
 import CategoryChoice from "@components/categoryChoice/CategoryChoice"
@@ -55,18 +57,19 @@ const AllListScreen = props => {
     )
     
     const getNotifNow = () => {
-        if(taskNotifNow){
-            console.log(taskNotifNow)
-            taskNotifNow.forEach((item) => {
-                pushNotificationSchedule(
-                    'channel-id',
-                    item.id,
-                    item.nameTask,
-                    item.description,
-                    new Date(moment(item.dateTask.dateMoment).format('llll'))
-                )
-            })
-        }
+        setTimeout(() => {
+            if(taskNotifNow){
+                taskNotifNow.forEach((item) => {
+                    pushNotificationSchedule(
+                        'channel-id',
+                        item.id,
+                        item.nameTask,
+                        item.description,
+                        new Date(moment(item.dateTask.dateMoment).format('llll'))
+                    )
+                })
+            }
+        }, 2000)
     }
 
     const componentDidAppearHandler = () => {
@@ -77,7 +80,7 @@ const AllListScreen = props => {
     useEffect(() => {
         LogBox.ignoreLogs(['VirtualizedLists should never be nested'])
         dispatch(fetchDate())
- 
+        dispatch(fetchDateNotif())
         getNotifNow()
 
         const listener = {
@@ -88,6 +91,7 @@ const AllListScreen = props => {
         const unsubscribe = Navigation.events().registerComponentListener(listener, props.componentId);
         return () => {
             unsubscribe.remove();
+            dispatch({ type: DELETE_NOTIFICATIONNOW })
         };
     }, [])
 
@@ -210,6 +214,6 @@ const styles = StyleSheet.create({
         backgroundColor: colors.primaryColor
     },
     paddingTopScroll: {
-        paddingTop: 354
+        paddingTop: 377
     }
 })
