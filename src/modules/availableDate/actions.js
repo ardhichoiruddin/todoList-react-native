@@ -9,8 +9,8 @@ const availableTaskHandler = (date, taskDate) => {
     return taskDate.some((item) => moment(item.toString()).isSame(dateCount) === true)
 }
 
-export const showAfterCurrentDate = 8
-export const showBeforeCurrentDate = 3
+export const showAfterCurrentDate = 10
+export const showBeforeCurrentDate = 1
 
 export const fetchDate = () => async(dispatch, getState) => {
     const getDate = new Promise((resolve) => {

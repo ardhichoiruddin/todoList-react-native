@@ -1,11 +1,13 @@
 import React, { memo } from 'react'
 import { Navigation } from 'react-native-navigation'
-import { View, Text, TouchableHighlight, StyleSheet } from 'react-native'
+import { View, TouchableHighlight, StyleSheet, Dimensions } from 'react-native'
 import { apply } from 'osmicsx'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import { colors } from '@constant/colors'
 
+
+const { width } = Dimensions.get('screen')
 
 const BottomTab = props => {
 
@@ -86,7 +88,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 14
     },
     bottomTab: {
-        maxWidth: 290
+        maxWidth: width / 1.225
     },
     iconCenter: {
         width: 62,

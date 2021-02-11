@@ -82,7 +82,7 @@ const AddCategoryOverlayScreen = props => {
                                 render={(props) => (
                                     <TextInput
                                         {...props}
-                                        label="Name Categor"
+                                        label="Name Category"
                                         mode="outlined"
                                         placeholder="Write name your category"
                                         onChangeText={text => {
